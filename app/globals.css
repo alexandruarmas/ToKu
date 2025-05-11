@@ -1,0 +1,689 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-title: var(--font-rubik-dirt);
+  --font-subtitle: var(--font-space-mono);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Apple-style background grid */
+.bg-grid-white {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+/* Subtle hover effect for cards */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+}
+
+/* Card glow and animations */
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3), 
+              0 0 30px rgba(139, 92, 246, 0.2), 
+              0 0 45px rgba(59, 130, 246, 0.1);
+}
+
+.shadow-glow-sm {
+  box-shadow: 0 0 7.5px rgba(99, 102, 241, 0.4), 
+              0 0 15px rgba(139, 92, 246, 0.2);
+}
+
+/* Card and text appearance animations */
+@keyframes card-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    box-shadow: 0 0 0 rgba(99, 102, 241, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.3), 
+                0 0 30px rgba(139, 92, 246, 0.2), 
+                0 0 45px rgba(59, 130, 246, 0.1);
+  }
+}
+
+/* Social buttons animation */
+@keyframes social-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-social-appear {
+  animation: social-appear 0.6s ease-out 0.8s forwards;
+  opacity: 0;
+}
+
+/* Stagger the appearance of social buttons */
+.cl-socialButtonsIconButton:nth-child(1) {
+  animation-delay: 0.8s;
+  transform: translateX(-20px) !important;
+  opacity: 0;
+  animation: social-button-appear 0.5s ease-out 0.8s forwards;
+}
+
+.cl-socialButtonsIconButton:nth-child(2) {
+  animation-delay: 0.9s;
+  transform: translateX(-20px) !important;
+  opacity: 0;
+  animation: social-button-appear 0.5s ease-out 0.9s forwards;
+}
+
+.cl-socialButtonsIconButton:nth-child(3) {
+  animation-delay: 1s;
+  transform: translateX(-20px) !important;
+  opacity: 0;
+  animation: social-button-appear 0.5s ease-out 1s forwards;
+}
+
+@keyframes social-button-appear {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes title-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtitle-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-card-appear {
+  animation: card-appear 1s ease-out forwards;
+}
+
+.animate-title-appear {
+  animation: title-appear 1s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+.animate-subtitle-appear {
+  animation: subtitle-appear 1s ease-out 0.5s forwards;
+  opacity: 0;
+}
+
+/* Custom height utilities */
+.h-15 {
+  height: 1.875rem; /* 30px */
+}
+
+.h-18 {
+  height: 2.25rem; /* 36px */
+}
+
+.p-15 {
+  padding: 1.875rem; /* 30px */
+}
+
+.mb-15 {
+  margin-bottom: 1.875rem; /* 30px */
+}
+
+/* Font utility classes */
+.font-title {
+  font-family: var(--font-rubik-dirt), 'Impact', cursive;
+}
+
+.font-subtitle {
+  font-family: var(--font-space-mono), monospace;
+}
+
+/* Responsive sizing - base sizes reduced by 50% */
+@media (max-width: 640px) {
+  .cl-card {
+    padding: 1rem !important;
+  }
+  
+  .cl-headerTitle {
+    font-size: 0.875rem !important;
+  }
+  
+  .cl-headerSubtitle {
+    font-size: 0.625rem !important;
+  }
+  
+  .cl-socialButtonsIconButton {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .cl-socialButtonsIconButtonsBlockWrapper {
+    gap: 12px !important;
+  }
+}
+
+/* ======== stream css overrides ======== */
+.str-video__call-stats {
+  max-width: 312px; /* Reduced by 50% from 625px */
+  position: relative;
+}
+
+.str-video__speaker-layout__wrapper {
+  max-height: 437px; /* Reduced by 50% from 875px */
+}
+
+.str-video__participant-details {
+  color: white;
+  font-size: 0.5625rem; /* Reduced text size */
+  font-family: var(--font-subtitle);
+}
+
+.str-video__menu-container {
+  color: white;
+  font-family: var(--font-subtitle);
+}
+
+.str-video__notification {
+  color: white;
+  font-family: var(--font-subtitle);
+}
+
+.str-video__participant-list {
+  background-color: #1c1f2e;
+  padding: 6px; /* Reduced by 50% from 12px */
+  border-radius: 6px; /* Reduced by 50% from 12px */
+  color: white;
+  height: 100%;
+  font-family: var(--font-subtitle);
+}
+
+.str-video__call-controls__button {
+  height: 25px; /* Reduced by 50% from 50px */
+  font-family: var(--font-title);
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(2.5px); /* Reduced by 50% from 5px */
+  -webkit-backdrop-filter: blur(2.5px);
+}
+.glassmorphism2 {
+  background: rgba(18, 17, 17, 0.25);
+  backdrop-filter: blur(5px); /* Reduced by 50% from 10px */
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* ==== clerk class override ===== */
+
+.cl-userButtonPopoverActionButtonIcon {
+  color: white;
+}
+
+.cl-logoBox {
+  height: 62.5px !important; /* Reduced by 50% from 125px */
+  width: 62.5px !important; /* Reduced by 50% from 125px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12.5px auto; /* Reduced margin */
+}
+
+.cl-logoImage {
+  height: 50px !important; /* Reduced by 50% from 100px */
+  width: 50px !important; /* Reduced by 50% from 100px */
+  transform: scale(1);
+  transition: transform 0.5s ease;
+}
+
+.cl-dividerLine {
+  background: #252a41;
+  height: 1px;
+}
+
+/* Increase social buttons specifically */
+.cl-socialButtonsIconButton {
+  width: 40px !important;
+  height: 40px !important;
+  border-width: 1.5px !important;
+  border: 1.5px solid #565761 !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cl-socialButtonsIconButton svg {
+  width: 1rem !important;
+  height: 1rem !important;
+}
+
+.cl-socialButtonsIconButton:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 0 12.5px rgba(79, 70, 229, 0.5) !important;
+}
+
+.cl-internal-wkkub3 {
+  color: white;
+}
+
+.cl-userButtonPopoverActionButton {
+  color: white;
+}
+
+/* Style specific social provider buttons for better visibility */
+.cl-providerIcon__google {
+  filter: brightness(1.2) !important;
+}
+
+.cl-providerIcon__github {
+  filter: invert(1) brightness(1.2) !important;
+}
+
+.cl-providerIcon__apple {
+  filter: brightness(1.2) !important;
+}
+
+/* Fix for black footer */
+.cl-footer {
+  background: transparent !important;
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.cl-footerActionLink {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  text-decoration: underline;
+}
+
+.cl-footerText {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.cl-footerActionText {
+  color: white !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.cl-auth-form-footer {
+  background: transparent !important;
+  border-radius: 0 0 12.5px 12.5px; /* Reduced by 50% from 25px */
+}
+
+/* Remove all black backgrounds in Clerk */
+[class*="cl-"] {
+  background-color: transparent !important;
+}
+
+/* User button popover styling - black background */
+.cl-userButtonPopoverCard,
+.cl-userButtonPopoverActions,
+.cl-userButtonPopoverFooter,
+#clerk-development {
+  background-color: #000 !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.cl-userButtonPopoverCard {
+  border-radius: 12px !important;
+  overflow: visible !important;
+  margin-top: 10px !important;
+  transform-origin: top right !important;
+  max-height: none !important;
+}
+
+.cl-userButtonPopoverRootBox {
+  margin-top: 10px !important;
+  top: 100% !important;
+  overflow: visible !important;
+}
+
+.cl-userButtonPopoverActions {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.cl-userButtonPopoverFooter {
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.cl-userButtonPopoverActionButton {
+  color: white !important;
+}
+
+.cl-userButtonPopoverActionButtonIcon {
+  color: white !important;
+}
+
+/* Text shadow utilities for better readability */
+.text-shadow-sm {
+  text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-md {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Auth page animations */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse-subtle {
+  0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(59, 130, 246, 0); } /* Reduced by 50% from 12px */
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.7s ease-out forwards;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s infinite;
+}
+
+.animate-gradientShift {
+  background-size: 200% 200%;
+  animation: gradientShift 5s ease infinite;
+}
+
+/* Utility classes for gradient backgrounds */
+.bg-size-200 {
+  background-size: 200% 200%;
+}
+
+.bg-pos-0 {
+  background-position: 0% 0%;
+}
+
+.bg-pos-100 {
+  background-position: 100% 100%;
+}
+
+/* =============================== */
+
+@layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+}
+
+/* animation */
+
+.show-block {
+  width: 100%;
+  max-width: 218.5px; /* Reduced by 50% from 437px */
+  display: block;
+  animation: show 0.7s forwards linear;
+}
+
+@keyframes show {
+  0% {
+    animation-timing-function: ease-in;
+    width: 0%;
+  }
+
+  100% {
+    animation-timing-function: ease-in;
+    width: 100%;
+  }
+}
+
+/* Extra Clerk Customizations */
+.cl-card {
+  transform: scale(1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cl-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.3); /* Reduced by 50% from 50px */
+}
+
+.cl-formButtonPrimary:hover {
+  box-shadow: 0 5px 15.5px -3px rgba(99, 102, 241, 0.5); /* Reduced by 50% */
+}
+
+.cl-logoImage:hover {
+  transform: scale(1.2);
+}
+
+/* Target specific footer elements */
+[class*="clerk-public"] [class*="footer"] {
+  background: transparent !important;
+  color: white !important;
+}
+
+/* Ensure development mode is transparent */
+#clerk-development {
+  background: transparent !important;
+  border-radius: 0 0 12.5px 12.5px; /* Reduced by 50% from 25px */
+  color: #ffa500 !important;
+  text-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.7);
+}
+
+/* Apply font families to Clerk components */
+.cl-headerTitle, 
+.cl-formButtonPrimary, 
+.cl-socialButtonsBlockButton,
+.cl-button {
+  font-family: var(--font-title) !important;
+  letter-spacing: 0.025em !important;
+}
+
+.cl-headerSubtitle, 
+.cl-footerActionText, 
+.cl-footerActionLink,
+.cl-formFieldLabel,
+.cl-formFieldInput,
+.cl-dividerText,
+.cl-formFieldAction,
+.cl-formFieldSuccessText,
+.cl-alertText,
+.cl-footer,
+.cl-formResendCodeLink,
+.cl-identityPreviewEditButton {
+  font-family: var(--font-subtitle) !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* ===== Social Login Button Fixes ===== */
+/* COMPLETE RESET AND OVERRIDE FOR SOCIAL BUTTONS */
+.cl-socialButtonsIconButtonsBlockWrapper,
+.cl-socialButtonsBlockButtonsProvider,
+div[class*="cl-socialButtons"] {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  gap: 16px !important;
+  margin: 16px auto !important;
+  padding: 0 !important;
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  flex-wrap: nowrap !important;
+}
+
+.cl-socialButtonsIconButton {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  flex: 0 0 44px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transform: none !important;
+  border-radius: 50% !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(5px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+  position: static !important;
+  float: none !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  overflow: visible !important;
+}
+
+.cl-socialButtonsIconButton:nth-child(1),
+.cl-socialButtonsIconButton:nth-child(2),
+.cl-socialButtonsIconButton:nth-child(3) {
+  transform: none !important;
+  opacity: 1 !important;
+  animation: none !important;
+  position: static !important;
+}
+
+.cl-socialButtonsIconButton:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3) !important;
+  background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.cl-socialButtonsIconButton svg {
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+  margin: 0 auto !important;
+  position: static !important;
+}
+
+/* Remove any Clerk animations that might interfere */
+@keyframes social-appear {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes social-button-appear {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.animate-social-appear {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+/* Prevent absolute positioning */
+.cl-card *,
+.cl-formContainer * {
+  position: static !important;
+}
+
+/* Ensure the buttons are not stacked */
+.cl-socialButtonsIconButton + .cl-socialButtonsIconButton {
+  margin-top: 0 !important;
+}
+
+/* Metal shine animation */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  animation: shine 2.5s infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  100% {
+    left: 125%;
+  }
+}
+
+/* Blinking colon for digital clock */
+.blinking-colon {
+  transition: opacity 0.2s;
+}
+
+/* Custom thin, auto-hiding scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 8px;
+}
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #374151 transparent;
+}
