@@ -1,18 +1,6 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-
-const publicRoutes = createRouteMatcher([
-  "/",
-  "/sign-in(.*)",
-  "/sign-up(.*)"
-]);
-
-export default clerkMiddleware((auth, req) => {
-  if (publicRoutes(req)) {
-    return;
-  }
-  auth().protect();
-});
+// Completely disabled middleware
+export const middleware = () => {}
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: []
 };

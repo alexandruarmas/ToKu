@@ -4,43 +4,6 @@
 
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
-  NODE_VERSION = "18"
 
 [[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-[[redirects]]
-  from = "/*"
-  to = "/_next/static/:splat"
-  status = 200
-  force = false
-  conditions = {Path = "/_next/static/*"}
-
-[[redirects]]
-  from = "/*"
-  to = "/api/:splat"
-  status = 200
-  force = false
-  conditions = {Path = "/api/*"}
-
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-  force = false
-  conditions = {Path = "/.netlify/functions/*"}
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Content-Security-Policy = "default-src 'self' clerk.alexandruarmas.ro *.clerk.accounts.dev; script-src 'self' 'unsafe-inline' 'unsafe-eval' clerk.alexandruarmas.ro *.clerk.accounts.dev; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data: https:; connect-src 'self' clerk.alexandruarmas.ro *.clerk.accounts.dev https://api.stream-io-api.com wss://ws.stream-io-api.com; frame-src 'self' clerk.alexandruarmas.ro *.clerk.accounts.dev;"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=()" 
+  package = "@netlify/plugin-nextjs" 
