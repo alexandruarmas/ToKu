@@ -6,4 +6,18 @@
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
 [[plugins]]
-  package = "@netlify/plugin-nextjs" 
+  package = "@netlify/plugin-nextjs"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self' clerk.alexandruarmas.ro *.clerk.accounts.dev; script-src 'self' 'unsafe-inline' 'unsafe-eval' clerk.alexandruarmas.ro *.clerk.accounts.dev; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data: https:; connect-src 'self' clerk.alexandruarmas.ro *.clerk.accounts.dev https://api.stream-io-api.com wss://ws.stream-io-api.com; frame-src 'self' clerk.alexandruarmas.ro *.clerk.accounts.dev;" 

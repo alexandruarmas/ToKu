@@ -21,6 +21,8 @@ const config = {
       fontFamily: {
         title: ['var(--font-rubik-dirt)', 'Impact', 'cursive'],
         subtitle: ['var(--font-space-mono)', 'monospace'],
+        'black-ops': ['var(--font-black-ops)'],
+        'space-grotesk': ['var(--font-space-grotesk)', 'sans-serif'],
       },
       colors: {
         dark: {
