@@ -7,19 +7,36 @@ const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 const apiSecret = process.env.STREAM_SECRET_KEY;
 
 export const tokenProvider = async () => {
-  const user = await currentUser();
+  try {
+    if (!apiKey || !apiSecret) {
+      console.error("Stream API credentials missing:", {
+        apiKeyExists: !!apiKey,
+        secretKeyExists: !!apiSecret
+      });
+      throw new Error("Stream API credentials missing.");
+    }
 
-  if (!user || !user?.id) throw new Error("Unauthorized.");
-  if (!apiKey) throw new Error("Stream api key missing.");
-  if (!apiSecret) throw new Error("Stream api secret missing.");
+    const user = await currentUser();
+    
+    if (!user || !user.id) {
+      console.error("User not authenticated in tokenProvider");
+      throw new Error("Authentication required.");
+    }
+    
+    console.log(`Generating token for user: ${user.id}`);
+    
+    const streamClient = new StreamClient(apiKey, apiSecret);
 
-  const streamClient = new StreamClient(apiKey, apiSecret);
+    // token is valid for an hour
+    const exp = Math.round(new Date().getTime() / 1000) + 60 * 60;
+    const issued = Math.floor(Date.now() / 1000) - 60;
 
-  // token is valid for an hour
-  const exp = Math.round(new Date().getTime() / 1000) + 60 * 60;
-  const issued = Math.floor(Date.now() / 1000) - 60;
-
-  const token = streamClient.createToken(user.id, exp, issued);
-
-  return token;
+    const token = streamClient.createToken(user.id, exp, issued);
+    
+    console.log(`Token generated successfully for user: ${user.id}`);
+    return token;
+  } catch (error) {
+    console.error("Token provider error:", error);
+    throw error; // Re-throw to propagate to the client
+  }
 };
