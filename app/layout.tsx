@@ -6,9 +6,13 @@ import type { PropsWithChildren } from "react";
 import "@stream-io/video-react-sdk/dist/css/styles.css";
 import "react-datepicker/dist/react-datepicker.css";
 
+import { AnimatedBackground } from "@/components/animated-background";
 import { Toaster } from "@/components/ui/toaster";
 import { siteConfig } from "@/config";
 import { cn } from "@/lib/utils";
+import { LayoutProvider } from "@/providers/layout-provider";
+import { BackgroundProvider } from "@/providers/background-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 import "./globals.css";
 
@@ -44,7 +48,7 @@ const AppLayout = ({ children }: Readonly<PropsWithChildren>) => {
         appearance={{
           baseTheme: undefined,
           layout: {
-            logoImageUrl: "/icons/yoom-logo.svg",
+            logoImageUrl: "/icons/toku-logo.svg",
             logoPlacement: "inside",
             socialButtonsVariant: "iconButton",
             socialButtonsPlacement: "bottom",
@@ -86,18 +90,19 @@ const AppLayout = ({ children }: Readonly<PropsWithChildren>) => {
           },
         }}
       >
-        <body className={cn("relative overflow-hidden h-screen", spaceMono.variable, rubikDirt.variable)}>
-          <div className="fixed inset-0 bg-[#1c1c1e] bg-gradient-to-b from-[#2c2c2e] to-[#1c1c1e]">
-            <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:32px_32px]" />
-            <div className="absolute inset-0 backdrop-blur-[100px]" style={{ 
-              background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0.2) 100%)'
-            }} />
-          </div>
-          <div className="flex h-screen justify-center items-center overflow-auto relative">
-            {children}
-          </div>
-          <Toaster />
-        </body>
+        <ThemeProvider>
+          <LayoutProvider>
+            <BackgroundProvider>
+              <body className={cn("relative overflow-hidden h-screen", spaceMono.variable, rubikDirt.variable)}>
+                <AnimatedBackground />
+                <div className="flex h-screen justify-center items-center overflow-auto relative">
+                  {children}
+                </div>
+                <Toaster />
+              </body>
+            </BackgroundProvider>
+          </LayoutProvider>
+        </ThemeProvider>
       </ClerkProvider>
     </html>
   );

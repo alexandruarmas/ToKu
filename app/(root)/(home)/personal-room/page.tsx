@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Creepster } from "next/font/google";
+import { Ribeye_Marrow } from "next/font/google";
 
 import { Loader } from "@/components/loader";
 import { PageLayout } from "@/components/page-layout";
@@ -39,6 +39,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { useGridLayout } from "@/hooks/use-grid-layout";
 
 type TableProps = {
   title: string;
@@ -52,7 +53,7 @@ type TableProps = {
 
 type ViewMode = "info" | "settings";
 
-const creepster = Creepster({ subsets: ["latin"], weight: "400", variable: "--font-creepster" });
+const ribeyeMarrow = Ribeye_Marrow({ subsets: ["latin"], weight: "400", variable: "--font-ribeye-marrow" });
 
 const Table = ({ 
   title, 
@@ -63,10 +64,10 @@ const Table = ({
   editValue, 
   onEditChange 
 }: TableProps) => (
-  <div className="grid grid-cols-[120px,1fr,auto] items-center gap-4">
+  <div className="grid grid-cols-1 sm:grid-cols-[120px,1fr,auto] gap-2 sm:gap-4 items-center">
     <h1 className="text-sky-1 text-base font-medium">{title}:</h1>
     {isEditing ? (
-      <div className="flex gap-2">
+      <div className="col-span-full sm:col-span-1 flex gap-2">
         <Input
           value={editValue}
           onChange={(e) => onEditChange?.(e.target.value)}
@@ -76,20 +77,22 @@ const Table = ({
           onClick={() => onSave?.(editValue || '')}
           className="bg-green-500 hover:bg-green-600 text-white px-4"
         >
-          Save
+          Salvează
         </Button>
       </div>
     ) : (
       <>
-        <p className="text-white text-base font-medium truncate">{description}</p>
+        <p className="text-white text-base font-medium truncate break-all sm:break-normal">{description}</p>
         {onEdit && (
-          <Button
-            onClick={onEdit}
-            variant="ghost"
-            className="text-white hover:bg-white/10"
-          >
-            <Pencil size={16} />
-          </Button>
+          <div className="justify-self-end">
+            <Button
+              onClick={onEdit}
+              variant="ghost"
+              className="text-white hover:bg-white/10"
+            >
+              <Pencil size={16} />
+            </Button>
+          </div>
         )}
       </>
     )}
@@ -113,7 +116,7 @@ const PersonalRoomPage = () => {
   });
 
   const [roomSettings, setRoomSettings] = useState({
-    // Meeting Preferences
+    // Preferințe Întâlnire
     defaultMuteAudio: false,
     defaultMuteVideo: false,
     allowChat: true,
@@ -121,24 +124,26 @@ const PersonalRoomPage = () => {
     defaultLayout: "speaker-left",
     autoRecording: false,
     
-    // Notification Settings
+    // Setări Notificări
     notifyOnJoin: true,
     notifyOnLeave: false,
     notifyOnChat: true,
     notifyOnRaiseHand: true,
     
-    // Access Controls
+    // Control Acces
     requireApproval: false,
     allowScreenShare: true,
     maxParticipants: "10",
     waitingRoom: false
   });
 
+  const { getGridLayoutClasses } = useGridLayout();
+
   const updateSetting = (key: keyof typeof roomSettings, value: string | boolean | number) => {
     setRoomSettings(prev => ({ ...prev, [key]: value }));
     toast({ 
-      title: "Setting updated",
-      description: "Your preference has been saved"
+      title: "Setare actualizată",
+      description: "Preferința ta a fost salvată"
     });
   };
 
@@ -177,7 +182,7 @@ const PersonalRoomPage = () => {
           });
         }
       } catch (error) {
-        console.error("Failed to fetch room stats:", error);
+        console.error("Eroare la încărcarea statisticilor camerei:", error);
       }
     };
 
@@ -196,8 +201,8 @@ const PersonalRoomPage = () => {
   const startRoom = async () => {
     if (!streamClient || !meetingId) {
       toast({
-        title: "Unable to start the meeting",
-        description: "Please try again later",
+        title: "Nu se poate porni întâlnirea",
+        description: "Vă rugăm încercați din nou mai târziu",
         variant: "destructive"
       });
       return;
@@ -234,10 +239,10 @@ const PersonalRoomPage = () => {
 
       router.push(`/meeting/${meetingId}?personal=true`);
     } catch (error) {
-      console.error("Failed to start room:", error);
+      console.error("Eroare la pornirea camerei:", error);
       toast({
-        title: "Failed to start the meeting",
-        description: "Please try again later",
+        title: "Eroare la pornirea întâlnirii",
+        description: "Vă rugăm încercați din nou mai târziu",
         variant: "destructive"
       });
     } finally {
@@ -246,18 +251,18 @@ const PersonalRoomPage = () => {
   };
 
   const handleEditTopic = () => {
-    setTopicValue(`${displayName}'s Meeting Room`);
+    setTopicValue(`Camera de Întâlniri a lui ${displayName}`);
     setIsEditingTopic(true);
   };
 
   const handleSaveTopic = (value: string) => {
     if (value.trim()) {
       setIsEditingTopic(false);
-      toast({ title: "Topic updated" });
+      toast({ title: "Subiect actualizat" });
     } else {
       toast({ 
-        title: "Invalid topic",
-        description: "Topic cannot be empty",
+        title: "Subiect invalid",
+        description: "Subiectul nu poate fi gol",
         variant: "destructive"
       });
     }
@@ -270,18 +275,18 @@ const PersonalRoomPage = () => {
   if (error) {
     return (
       <div className="text-white text-center">
-        <h1>Unable to load Personal Room</h1>
-        <p>{error.message || "An unknown error occurred"}</p>
-        <Button onClick={() => router.refresh()}>Try Again</Button>
+        <h1>Nu se poate încărca Camera Personală</h1>
+        <p>{error.message || "A apărut o eroare necunoscută"}</p>
+        <Button onClick={() => router.refresh()}>Încearcă din nou</Button>
       </div>
     );
   }
 
   return (
     <PageLayout
-      title={<span className={`flex justify-center w-full ${creepster.className}`}>Personal Room</span>}
-      subtitle={<span className="flex justify-center w-full font-subtitle">Your personal meeting room</span>}
-      statusText="Your Personal Meeting Room"
+      title={<span className={`flex justify-center w-full ${ribeyeMarrow.className}`}>Cameră Personală</span>}
+      subtitle={<span className="flex justify-center w-full font-subtitle">Camera ta personală de întâlniri</span>}
+      statusText="Camera ta Personală de Întâlniri"
       iconColor="bg-purple-400"
       bgGradient="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
     >
@@ -290,17 +295,17 @@ const PersonalRoomPage = () => {
           <Loader />
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-6 mx-auto max-w-4xl w-full px-4 sm:px-6">
           {/* View Mode Selector */}
-          <Tabs value={viewMode} onValueChange={handleViewModeChange} className="w-full">
-            <TabsList className="grid w-full max-w-[400px] grid-cols-2">
-              <TabsTrigger value="info" className="flex items-center gap-2">
+          <Tabs value={viewMode} onValueChange={handleViewModeChange} className="w-full flex justify-center">
+            <TabsList className="w-full max-w-[400px] grid grid-cols-2">
+              <TabsTrigger value="info" className="flex items-center gap-2 justify-center">
                 <Users className="h-4 w-4" />
-                Room Info
+                Informații Cameră
               </TabsTrigger>
-              <TabsTrigger value="settings" className="flex items-center gap-2">
+              <TabsTrigger value="settings" className="flex items-center gap-2 justify-center">
                 <Settings className="h-4 w-4" />
-                Settings
+                Setări
               </TabsTrigger>
             </TabsList>
           </Tabs>
@@ -308,11 +313,11 @@ const PersonalRoomPage = () => {
           {viewMode === "info" ? (
             <>
               {/* Room Information */}
-              <div className="bg-white/10 backdrop-blur-md rounded-lg p-8">
-                <div className="space-y-6 max-w-2xl">
+              <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 sm:p-6 md:p-8">
+                <div className="space-y-6 mx-auto">
                   <Table 
-                    title="Topic" 
-                    description={`${displayName}'s Meeting Room`}
+                    title="Subiect" 
+                    description={`Camera de Întâlniri a lui ${displayName}`}
                     onEdit={handleEditTopic}
                     isEditing={isEditingTopic}
                     onSave={handleSaveTopic}
@@ -320,7 +325,7 @@ const PersonalRoomPage = () => {
                     onEditChange={setTopicValue}
                   />
                   <div className="flex items-center gap-4">
-                    <Table title="Invite link" description={meetingLink} />
+                    <Table title="Link invitație" description={meetingLink} />
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="text-white hover:bg-white/10">
@@ -330,83 +335,83 @@ const PersonalRoomPage = () => {
                       <DropdownMenuContent className="bg-dark-2 border-dark-1">
                         <DropdownMenuItem onClick={() => {
                           navigator.clipboard.writeText(meetingLink);
-                          toast({ title: "Link copied to clipboard" });
+                          toast({ title: "Link copiat în clipboard" });
                         }}>
                           <Copy className="mr-2 h-4 w-4" />
-                          Copy Link
+                          Copiază Link
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={() => {
-                          const text = `Join my meeting room: ${meetingLink}`;
+                          const text = `Alătură-te camerei mele de întâlniri: ${meetingLink}`;
                           navigator.share?.({ text }).catch(() => {
                             navigator.clipboard.writeText(text);
-                            toast({ title: "Link copied to clipboard" });
+                            toast({ title: "Link copiat în clipboard" });
                           });
                         }}>
                           <Share2 className="mr-2 h-4 w-4" />
-                          Share
+                          Distribuie
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-8 flex justify-center sm:justify-start">
                   <Button 
                     onClick={startRoom}
                     disabled={isCreatingRoom}
                     className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-xl"
                   >
-                    {isCreatingRoom ? "Starting..." : "Start Meeting"}
+                    {isCreatingRoom ? "Se pornește..." : "Pornește Întâlnirea"}
                   </Button>
                 </div>
               </div>
 
               {/* Room Statistics */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+              <div className="grid gap-4 sm:gap-6 mt-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                 <div className="bg-dark-2 rounded-xl p-6 flex flex-col items-center justify-center text-center">
                   <Users className="h-8 w-8 mb-4 text-purple-400" />
-                  <h3 className="text-lg font-medium mb-2">Total Meetings</h3>
+                  <h3 className="text-lg font-medium mb-2">Total Întâlniri</h3>
                   <p className="text-3xl font-bold">{roomStats.totalMeetings}</p>
                 </div>
                 <div className="bg-dark-2 rounded-xl p-6 flex flex-col items-center justify-center text-center">
                   <Clock className="h-8 w-8 mb-4 text-emerald-400" />
-                  <h3 className="text-lg font-medium mb-2">Total Duration</h3>
+                  <h3 className="text-lg font-medium mb-2">Durată Totală</h3>
                   <p className="text-3xl font-bold">
                     {Math.round(roomStats.totalDuration / (1000 * 60))}m
                   </p>
                 </div>
                 <div className="bg-dark-2 rounded-xl p-6 flex flex-col items-center justify-center text-center">
                   <Clock className="h-8 w-8 mb-4 text-amber-400" />
-                  <h3 className="text-lg font-medium mb-2">Average Duration</h3>
+                  <h3 className="text-lg font-medium mb-2">Durată Medie</h3>
                   <p className="text-3xl font-bold">
                     {Math.round(roomStats.averageDuration / (1000 * 60))}m
                   </p>
                 </div>
                 <div className="bg-dark-2 rounded-xl p-6 flex flex-col items-center justify-center text-center">
                   <Calendar className="h-8 w-8 mb-4 text-blue-400" />
-                  <h3 className="text-lg font-medium mb-2">Last Meeting</h3>
+                  <h3 className="text-lg font-medium mb-2">Ultima Întâlnire</h3>
                   <p className="text-xl font-bold">
-                    {roomStats.lastMeeting ? roomStats.lastMeeting.toLocaleDateString() : "Never"}
+                    {roomStats.lastMeeting ? roomStats.lastMeeting.toLocaleDateString() : "Niciodată"}
                   </p>
                 </div>
               </div>
             </>
           ) : (
             /* Settings View */
-            <div className="bg-white/10 backdrop-blur-md rounded-lg p-8">
-              <div className="space-y-8 max-w-3xl">
+            <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 sm:p-6 md:p-8">
+              <div className="space-y-8 mx-auto">
                 {/* Meeting Preferences */}
                 <div>
-                  <h2 className="text-2xl font-semibold mb-6">Meeting Preferences</h2>
+                  <h2 className="text-2xl font-semibold mb-6 text-center sm:text-left">Preferințe Întâlnire</h2>
                   <div className="space-y-6">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <Mic className="h-4 w-4" />
-                          <Label>Mute audio by default</Label>
+                          <Label>Dezactivează sunetul implicit</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Participants will join with muted microphone</p>
+                        <p className="text-sm text-gray-400">Participanții se vor alătura cu microfonul dezactivat</p>
                       </div>
                       <Switch 
                         checked={roomSettings.defaultMuteAudio}
@@ -414,13 +419,13 @@ const PersonalRoomPage = () => {
                       />
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <Video className="h-4 w-4" />
-                          <Label>Mute video by default</Label>
+                          <Label>Dezactivează video implicit</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Participants will join with camera off</p>
+                        <p className="text-sm text-gray-400">Participanții se vor alătura cu camera oprită</p>
                       </div>
                       <Switch 
                         checked={roomSettings.defaultMuteVideo}
@@ -428,13 +433,13 @@ const PersonalRoomPage = () => {
                       />
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <MessageSquare className="h-4 w-4" />
-                          <Label>Enable chat</Label>
+                          <Label>Activează chat</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Allow participants to use chat during meetings</p>
+                        <p className="text-sm text-gray-400">Permite participanților să folosească chat-ul în timpul întâlnirilor</p>
                       </div>
                       <Switch 
                         checked={roomSettings.allowChat}
@@ -442,13 +447,13 @@ const PersonalRoomPage = () => {
                       />
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <Hand className="h-4 w-4" />
-                          <Label>Allow raise hand</Label>
+                          <Label>Permite ridicarea mâinii</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Participants can raise hand to ask questions</p>
+                        <p className="text-sm text-gray-400">Participanții pot ridica mâna pentru a pune întrebări</p>
                       </div>
                       <Switch 
                         checked={roomSettings.allowRaiseHand}
@@ -456,13 +461,13 @@ const PersonalRoomPage = () => {
                       />
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <Layout className="h-4 w-4" />
-                          <Label>Default layout</Label>
+                          <Label>Aspect implicit</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Choose the default meeting view layout</p>
+                        <p className="text-sm text-gray-400">Alege aspectul implicit al întâlnirii</p>
                       </div>
                       <Select 
                         value={roomSettings.defaultLayout}
@@ -472,20 +477,20 @@ const PersonalRoomPage = () => {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="bg-dark-2">
-                          <SelectItem value="grid">Grid</SelectItem>
-                          <SelectItem value="speaker-left">Speaker Left</SelectItem>
-                          <SelectItem value="speaker-right">Speaker Right</SelectItem>
+                          <SelectItem value="grid">Grilă</SelectItem>
+                          <SelectItem value="speaker-left">Vorbitor Stânga</SelectItem>
+                          <SelectItem value="speaker-right">Vorbitor Dreapta</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <Video className="h-4 w-4" />
-                          <Label>Auto recording</Label>
+                          <Label>Înregistrare automată</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Automatically start recording when meeting begins</p>
+                        <p className="text-sm text-gray-400">Începe înregistrarea automat când începe întâlnirea</p>
                       </div>
                       <Switch 
                         checked={roomSettings.autoRecording}
@@ -497,15 +502,15 @@ const PersonalRoomPage = () => {
 
                 {/* Notification Settings */}
                 <div className="mt-8 pt-8 border-t border-white/10">
-                  <h2 className="text-2xl font-semibold mb-6">Notification Settings</h2>
+                  <h2 className="text-2xl font-semibold mb-6">Setări Notificări</h2>
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <Bell className="h-4 w-4" />
-                          <Label>Participant join alerts</Label>
+                          <Label>Alerte participanți noi</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Get notified when someone joins the meeting</p>
+                        <p className="text-sm text-gray-400">Primește notificări când cineva se alătură întâlnirii</p>
                       </div>
                       <Switch 
                         checked={roomSettings.notifyOnJoin}
@@ -517,9 +522,9 @@ const PersonalRoomPage = () => {
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <Bell className="h-4 w-4" />
-                          <Label>Participant leave alerts</Label>
+                          <Label>Alerte părăsire participanți</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Get notified when someone leaves the meeting</p>
+                        <p className="text-sm text-gray-400">Primește notificări când cineva părăsește întâlnirea</p>
                       </div>
                       <Switch 
                         checked={roomSettings.notifyOnLeave}
@@ -531,9 +536,9 @@ const PersonalRoomPage = () => {
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <MessageSquare className="h-4 w-4" />
-                          <Label>Chat notifications</Label>
+                          <Label>Notificări chat</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Get notified of new chat messages</p>
+                        <p className="text-sm text-gray-400">Primește notificări pentru mesajele noi din chat</p>
                       </div>
                       <Switch 
                         checked={roomSettings.notifyOnChat}
@@ -545,9 +550,9 @@ const PersonalRoomPage = () => {
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <Hand className="h-4 w-4" />
-                          <Label>Raised hand alerts</Label>
+                          <Label>Alerte mână ridicată</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Get notified when someone raises their hand</p>
+                        <p className="text-sm text-gray-400">Primește notificări când cineva ridică mâna</p>
                       </div>
                       <Switch 
                         checked={roomSettings.notifyOnRaiseHand}
@@ -559,15 +564,15 @@ const PersonalRoomPage = () => {
 
                 {/* Access Controls */}
                 <div className="mt-8 pt-8 border-t border-white/10">
-                  <h2 className="text-2xl font-semibold mb-6">Access Controls</h2>
+                  <h2 className="text-2xl font-semibold mb-6">Control Acces</h2>
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <Lock className="h-4 w-4" />
-                          <Label>Require approval</Label>
+                          <Label>Necesită aprobare</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Manually approve participants before they can join</p>
+                        <p className="text-sm text-gray-400">Aprobă manual participanții înainte să se poată alătura</p>
                       </div>
                       <Switch 
                         checked={roomSettings.requireApproval}
@@ -579,9 +584,9 @@ const PersonalRoomPage = () => {
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <Share2 className="h-4 w-4" />
-                          <Label>Allow screen sharing</Label>
+                          <Label>Permite partajarea ecranului</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Let participants share their screens</p>
+                        <p className="text-sm text-gray-400">Permite participanților să își partajeze ecranul</p>
                       </div>
                       <Switch 
                         checked={roomSettings.allowScreenShare}
@@ -593,23 +598,23 @@ const PersonalRoomPage = () => {
                       <div className="space-y-1 flex-shrink">
                         <div className="flex items-center gap-2">
                           <Users className="h-4 w-4" />
-                          <Label>Maximum participants</Label>
+                          <Label>Număr maxim de participanți</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Set the maximum number of participants allowed</p>
+                        <p className="text-sm text-gray-400">Limitează numărul de participanți care se pot alătura</p>
                       </div>
                       <Select 
                         value={roomSettings.maxParticipants}
                         onValueChange={(value: string) => updateSetting('maxParticipants', value)}
                       >
-                        <SelectTrigger className="w-[120px] bg-dark-2 flex-shrink-0">
+                        <SelectTrigger className="w-[100px] bg-dark-2">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="bg-dark-2">
                           <SelectItem value="5">5</SelectItem>
                           <SelectItem value="10">10</SelectItem>
+                          <SelectItem value="15">15</SelectItem>
+                          <SelectItem value="20">20</SelectItem>
                           <SelectItem value="25">25</SelectItem>
-                          <SelectItem value="50">50</SelectItem>
-                          <SelectItem value="100">100</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -617,10 +622,10 @@ const PersonalRoomPage = () => {
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                          <Clock className="h-4 w-4" />
-                          <Label>Waiting room</Label>
+                          <Lock className="h-4 w-4" />
+                          <Label>Sală de așteptare</Label>
                         </div>
-                        <p className="text-sm text-gray-400">Place participants in a waiting room before joining</p>
+                        <p className="text-sm text-gray-400">Participanții vor aștepta într-o sală de așteptare până sunt admiși</p>
                       </div>
                       <Switch 
                         checked={roomSettings.waitingRoom}

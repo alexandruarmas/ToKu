@@ -38,16 +38,16 @@ type MeetingSetupProps = {
 
 // Default background blur options if images aren't available
 const BLUR_INTENSITIES = [
-  { name: "Light", value: "low" },
-  { name: "Medium", value: "medium" },
-  { name: "Strong", value: "high" },
+  { name: "Estompare Ușoară", value: "low" },
+  { name: "Estompare Medie", value: "medium" },
+  { name: "Estompare Puternică", value: "high" },
 ];
 
 // Default background images
 const DEFAULT_BACKGROUNDS = [
-  { name: "Office", url: "/backgrounds/office.jpg" },
-  { name: "Beach", url: "/backgrounds/beach.jpg" },
-  { name: "Mountain", url: "/backgrounds/mountain.jpg" },
+  { name: "Birou", url: "/backgrounds/office.jpg" },
+  { name: "Plajă", url: "/backgrounds/beach.jpg" },
+  { name: "Munte", url: "/backgrounds/mountain.jpg" },
 ];
 
 type BackgroundEffectType = 
@@ -68,51 +68,51 @@ const CustomDeviceSettings = () => {
       </DialogTrigger>
       <DialogContent className="bg-gray-900 border-gray-700 text-white">
         <DialogHeader>
-          <DialogTitle>Device Settings</DialogTitle>
+          <DialogTitle>Setări Dispozitive</DialogTitle>
           <DialogDescription className="text-gray-400">
-            Select your audio and video devices
+            Selectează audio și video device-uri
           </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-5">
           <div>
-            <h3 className="text-sm font-medium mb-2">Select a Camera</h3>
+            <h3 className="text-sm font-medium mb-2">Selectează o Cameră</h3>
             <RadioGroup defaultValue="default" className="space-y-2">
               <div className="flex items-center space-x-2 rounded-lg bg-gray-800 p-3">
                 <RadioGroupItem value="default" id="camera-default" className="text-blue-500" />
-                <Label htmlFor="camera-default" className="font-medium">Default</Label>
+                <Label htmlFor="camera-default" className="font-medium">Implicit</Label>
               </div>
             </RadioGroup>
           </div>
           
           <div>
-            <h3 className="text-sm font-medium mb-2">Select a Microphone</h3>
+            <h3 className="text-sm font-medium mb-2">Selectează un Microfon</h3>
             <RadioGroup defaultValue="default" className="space-y-2">
               <div className="flex items-center space-x-2 rounded-lg bg-gray-800 p-3">
                 <RadioGroupItem value="default" id="mic-default" className="text-blue-500" />
-                <Label htmlFor="mic-default" className="font-medium">Default</Label>
+                <Label htmlFor="mic-default" className="font-medium">Implicit</Label>
               </div>
               <div className="flex items-center space-x-2 rounded-lg bg-gray-800 p-3">
                 <RadioGroupItem value="headset" id="mic-headset" className="text-blue-500" />
-                <Label htmlFor="mic-headset" className="font-medium">Headset Microphone</Label>
+                <Label htmlFor="mic-headset" className="font-medium">Microfon Căști</Label>
               </div>
             </RadioGroup>
           </div>
           
           <div>
-            <h3 className="text-sm font-medium mb-2">Select Speakers</h3>
+            <h3 className="text-sm font-medium mb-2">Selectează Difuzoare</h3>
             <RadioGroup defaultValue="default" className="space-y-2">
               <div className="flex items-center space-x-2 rounded-lg bg-gray-800 p-3">
                 <RadioGroupItem value="default" id="speaker-default" className="text-blue-500" />
-                <Label htmlFor="speaker-default" className="font-medium">Default</Label>
+                <Label htmlFor="speaker-default" className="font-medium">Implicit</Label>
               </div>
               <div className="flex items-center space-x-2 rounded-lg bg-gray-800 p-3">
                 <RadioGroupItem value="headset" id="speaker-headset" className="text-blue-500" />
-                <Label htmlFor="speaker-headset" className="font-medium">Headset Earphone</Label>
+                <Label htmlFor="speaker-headset" className="font-medium">Căști Audio</Label>
               </div>
               <div className="flex items-center space-x-2 rounded-lg bg-gray-800 p-3">
                 <RadioGroupItem value="speakers" id="speaker-speakers" className="text-blue-500" />
-                <Label htmlFor="speaker-speakers" className="font-medium">Speakers (Realtek Audio)</Label>
+                <Label htmlFor="speaker-speakers" className="font-medium">Difuzoare (Realtek Audio)</Label>
               </div>
             </RadioGroup>
           </div>
@@ -137,7 +137,7 @@ const BackgroundFiltersControl = () => {
   if (!isSupported) {
     return (
       <div className="text-center text-sm text-gray-400 mt-2">
-        Your device doesn't support background filters
+        Dispozitivul dvs. nu suportă filtre de fundal
       </div>
     );
   }
@@ -194,7 +194,7 @@ const BackgroundFiltersControl = () => {
           }`}
           onClick={handleDisableFilter}
         >
-          <span className={`text-xs text-center ${activeEffect.type === "none" ? "text-white font-medium" : ""}`}>None</span>
+          <span className={`text-xs text-center ${activeEffect.type === "none" ? "text-white font-medium" : ""}`}>Niciunul</span>
         </div>
         
         {BLUR_INTENSITIES.map((blur, index) => (
@@ -211,7 +211,7 @@ const BackgroundFiltersControl = () => {
               activeEffect.type === "blur" && activeEffect.intensity === blur.value 
                 ? "text-white font-medium" 
                 : ""
-            }`}>{blur.name} Blur</span>
+            }`}>{blur.name}</span>
           </div>
         ))}
         
@@ -239,7 +239,7 @@ const BackgroundFiltersControl = () => {
         >
           <div className="flex flex-col items-center">
             <Plus size={16} className="text-gray-400" />
-            <span className="text-xs text-center text-gray-400">Add</span>
+            <span className="text-xs text-center text-gray-400">Adaugă</span>
           </div>
         </div>
       </div>
@@ -255,7 +255,7 @@ const BackgroundFiltersControl = () => {
       <div className="flex justify-between items-center mt-2">
         <div className="text-xs text-gray-400 flex items-center">
           <Upload size={12} className="mr-1" />
-          <span>Upload from your computer</span>
+          <span>Încarcă de pe calculator</span>
         </div>
         <CameraTips />
       </div>
@@ -280,8 +280,8 @@ const CameraSettings = () => {
     <div className="w-full max-w-md space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
-          <span className="font-medium">HD Video</span>
-          <span className="text-xs text-gray-400">Use higher quality video</span>
+          <span className="font-medium">Video HD</span>
+          <span className="text-xs text-gray-400">Folosește video de calitate superioară</span>
         </div>
         <Switch 
           checked={settings.hd} 
@@ -291,8 +291,8 @@ const CameraSettings = () => {
       
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
-          <span className="font-medium">Touch Up Appearance</span>
-          <span className="text-xs text-gray-400">Smooth out appearance</span>
+          <span className="font-medium">Îmbunătățire Aspect</span>
+          <span className="text-xs text-gray-400">Netezește aspectul</span>
         </div>
         <Switch 
           checked={settings.beautify} 
@@ -302,8 +302,8 @@ const CameraSettings = () => {
       
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
-          <span className="font-medium">Mirror My Video</span>
-          <span className="text-xs text-gray-400">Flip horizontally</span>
+          <span className="font-medium">Oglindește Video</span>
+          <span className="text-xs text-gray-400">Inversează orizontal</span>
         </div>
         <Switch 
           checked={settings.mirror} 
@@ -313,8 +313,8 @@ const CameraSettings = () => {
       
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
-          <span className="font-medium">Adjust for Low Light</span>
-          <span className="text-xs text-gray-400">Enhance video in low light</span>
+          <span className="font-medium">Ajustare Lumină Scăzută</span>
+          <span className="text-xs text-gray-400">Îmbunătățește video în lumină scăzută</span>
         </div>
         <Switch 
           checked={settings.autoLight} 
@@ -344,8 +344,8 @@ const AudioSettings = () => {
     <div className="w-full max-w-md space-y-4">
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
-          <span className="font-medium">Noise Cancellation</span>
-          <span className="text-xs text-gray-400">Reduce background noise</span>
+          <span className="font-medium">Anulare Zgomot</span>
+          <span className="text-xs text-gray-400">Reduce zgomotul de fundal</span>
         </div>
         <Switch 
           checked={settings.noiseCancellation} 
@@ -355,8 +355,8 @@ const AudioSettings = () => {
       
       <div className="flex items-center justify-between">
         <div className="flex flex-col">
-          <span className="font-medium">Auto-adjust Volume</span>
-          <span className="text-xs text-gray-400">Balance volume levels</span>
+          <span className="font-medium">Echilibrează nivelurile de volum</span>
+          <span className="text-xs text-gray-400">Echilibrează nivelurile de volum</span>
         </div>
         <Switch 
           checked={settings.autoAdjustVolume} 
@@ -373,9 +373,9 @@ const NoCameraUI = () => {
     <div className="h-[450px] w-[600px] rounded-xl bg-gray-800 flex flex-col items-center justify-center gap-4 border border-gray-700">
       <VideoOff size={48} className="text-gray-400" />
       <div className="text-center">
-        <h3 className="font-medium text-lg">No camera detected</h3>
+        <h3 className="font-medium text-lg">Nu s-a detectat camera</h3>
         <p className="text-sm text-gray-400 mt-1 max-w-[250px]">
-          Connect a camera or join with your camera off
+          Conectează o cameră sau intră cu camera oprită
         </p>
       </div>
     </div>
@@ -438,7 +438,7 @@ export const MeetingSetup = ({ setIsSetupComplete }: MeetingSetupProps) => {
   return (
     <BackgroundFiltersProvider>
       <div className="flex h-screen w-full flex-col items-center justify-center gap-6 text-white bg-transparent">
-        <h1 className="text-2xl font-bold">Setup</h1>
+        <h1 className="text-2xl font-bold">Configurare</h1>
 
         <div className="rounded-xl overflow-hidden border border-white/10 shadow-lg">
           {hasCamera && !isMicCamToggledOn ? (
@@ -453,11 +453,11 @@ export const MeetingSetup = ({ setIsSetupComplete }: MeetingSetupProps) => {
             <TabsList className="grid grid-cols-3 w-full mb-4">
               <TabsTrigger value="video" className="flex gap-2 items-center">
                 <Image size={16} />
-                <span>Background</span>
+                <span>Fundal</span>
               </TabsTrigger>
               <TabsTrigger value="camera" className="flex gap-2 items-center">
                 <Settings size={16} />
-                <span>Camera</span>
+                <span>Cameră</span>
               </TabsTrigger>
               <TabsTrigger value="audio" className="flex gap-2 items-center">
                 <Volume2 size={16} />
@@ -488,7 +488,7 @@ export const MeetingSetup = ({ setIsSetupComplete }: MeetingSetupProps) => {
                 onChange={(e) => setIsMicCamToggledOn(e.target.checked)}
                 className="h-4 w-4 rounded"
               />
-              <span>Join with mic and camera off</span>
+              <span>Intră cu microfonul și camera oprite</span>
             </label>
             <CustomDeviceSettings />
           </div>
@@ -501,7 +501,7 @@ export const MeetingSetup = ({ setIsSetupComplete }: MeetingSetupProps) => {
             setIsSetupComplete(true);
           }}
         >
-          Join meeting
+          Intră în întâlnire
         </Button>
       </div>
     </BackgroundFiltersProvider>

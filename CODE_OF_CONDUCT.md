@@ -1,4 +1,4 @@
-# Code of Conduct - Yoom
+# Code of Conduct - ToKu
 
 ## Our Pledge
 

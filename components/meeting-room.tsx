@@ -117,7 +117,7 @@ const BackgroundFiltersButton = () => {
                 ? "bg-[#19232D] hover:bg-[#4C535B]" 
                 : "bg-blue-600 hover:bg-blue-700"
             )}
-            title="Background filters"
+            title="Filtre fundal"
           >
             <Image size={20} className="text-white" />
             {activeEffect.type !== "none" && (
@@ -184,7 +184,7 @@ const BackgroundFiltersButton = () => {
           >
             <div className="flex items-center">
               <Plus size={16} className="mr-2" />
-              <span>Add background image</span>
+              <span>Adaugă imagine de fundal</span>
             </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -262,7 +262,7 @@ export const MeetingRoom = () => {
             {allowChat && (
               <button
                 onClick={() => setShowChat((prev) => !prev)}
-                title="Toggle chat"
+                title="Comută chat-ul"
               >
                 <div className="cursor-pointer rounded-2xl bg-[#19232D] px-4 py-2 hover:bg-[#4C535B]">
                   <MessageSquare size={20} className="text-white" />
@@ -272,7 +272,7 @@ export const MeetingRoom = () => {
 
             <button
               onClick={() => setShowParticipants((prev) => !prev)}
-              title="Show participants"
+              title="Arată participanții"
             >
               <div className="cursor-pointer rounded-2xl bg-[#19232D] px-4 py-2 hover:bg-[#4C535B]">
                 <Users size={20} className="text-white" />

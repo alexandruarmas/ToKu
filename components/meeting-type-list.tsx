@@ -1,233 +1,108 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
-import { type Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import ReactDatePicker from "react-datepicker";
-
-import { MeetingModal } from "@/components/modals/meeting-modal";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
-
 import { HomeCard } from "./home-card";
-import { Loader } from "./loader";
-
-type MeetingState =
-  | "isScheduleMeeting"
-  | "isJoiningMeeting"
-  | "isInstantMeeting"
-  | undefined;
+import { useGridLayout } from "@/hooks/use-grid-layout";
+import { useBackground } from "@/providers/background-provider";
+import { cn } from "@/lib/utils";
 
 export const MeetingTypeList = () => {
   const router = useRouter();
-  const { toast } = useToast();
+  const { getGridLayoutClasses } = useGridLayout();
+  const { backgroundType } = useBackground();
+  const isLightMode = backgroundType === "apple-light";
+  const isDarkInverted = backgroundType === "apple-dark-inverted";
+  const isMatrixHeart = backgroundType === "matrix-heart";
+  const isCrystalAurora = backgroundType === "crystal-aurora";
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [callDetails, setCallDetails] = useState<Call>();
-  const [meetingState, setMeetingState] = useState<MeetingState>(undefined);
-  const [values, setValues] = useState({
-    dateTime: new Date(),
-    description: "",
-    link: "",
-  });
-
-  const { user } = useUser();
-  const streamClient = useStreamVideoClient();
-
-  const createMeeting = async () => {
-    if (!streamClient || !user || !user?.id) return;
-
-    try {
-      setIsLoading(true);
-
-      if (!values.dateTime) {
-        return toast({
-          title: "Please select a date and time.",
-          variant: "destructive",
-        });
-      }
-
-      const id = crypto.randomUUID();
-      const call = streamClient.call("default", id);
-
-      if (!call) throw new Error("Failed to create call.");
-
-      const startsAt =
-        values.dateTime.toISOString() || new Date(Date.now()).toISOString();
-      const description = values.description || "Instant meeting";
-
-      await call.getOrCreate({
-        data: {
-          starts_at: startsAt,
-          custom: {
-            description,
-          },
-        },
-      });
-
-      setCallDetails(call);
-
-      if (!values?.description) {
-        router.push(`/meeting/${call.id}`);
-      }
-
-      toast({
-        title: "Meeting created.",
-      });
-    } catch (error) {
-      console.error("CREATE_MEETING: ", error);
-
-      toast({
-        title: "Failed to create meeting.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
+  // Define card styles for different themes using consistent darker colors
+  // that adapt appropriately to each theme context
+  const getCardStyle = (index: number) => {
+    if (isLightMode) {
+      // Light mode uses amber colors to match sidebar
+      return "bg-white hover:bg-amber-500/8 text-black border border-amber-500/20 hover:border-amber-500/30";
     }
+    
+    if (isDarkInverted) {
+      // Dark inverted mode uses teal colors to match sidebar
+      return "bg-[#0F111A] hover:bg-teal-500/8 text-white border border-teal-500/20 hover:border-teal-500/30";
+    }
+    
+    if (isMatrixHeart) {
+      // Matrix theme uses green colors to match sidebar
+      return "bg-[#0F111A] hover:bg-[#00FF4C]/8 text-white border border-[#00FF4C]/20 hover:border-[#00FF4C]/30";
+    }
+    
+    if (isCrystalAurora) {
+      // Crystal Aurora theme uses purple colors to match sidebar
+      return "bg-[#0F111A] hover:bg-[#A571D0]/8 text-white border border-[#A571D0]/20 hover:border-[#A571D0]/30";
+    }
+    
+    // Check for starfield theme
+    if (backgroundType === "starfield") {
+      // Starfield theme uses blue colors to match sidebar
+      return "bg-[#0F111A] hover:bg-[#63A0FF]/8 text-white border border-[#63A0FF]/20 hover:border-[#63A0FF]/30";
+    }
+    
+    // Default dark theme uses teal colors to match sidebar
+    return "bg-[#0F111A] hover:bg-teal-500/8 text-white border border-teal-500/20 hover:border-teal-500/30";
   };
-
-  if (!streamClient || !user || !user?.id) return <Loader />;
-
-  const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${callDetails?.id}`;
+  
+  // Unified card data to improve maintenance and consistency
+  const actionCards = [
+    {
+      title: "Întâlnire Nouă",
+      description: "Creează o întâlnire instant",
+      img: "/icons/video.svg",
+      handleClick: () => router.push("/personal-room")
+    },
+    {
+      title: "Programează",
+      description: "Planifică o întâlnire viitoare",
+      img: "/icons/schedule.svg",
+      handleClick: () => router.push("/upcoming")
+    },
+    {
+      title: "Viitoare",
+      description: "Vezi întâlnirile programate",
+      img: "/icons/upcoming.svg",
+      handleClick: () => router.push("/upcoming")
+    },
+    {
+      title: "Anterioare",
+      description: "Istoricul întâlnirilor",
+      img: "/icons/previous.svg",
+      handleClick: () => router.push("/previous")
+    },
+    {
+      title: "Înregistrări",
+      description: "Vizualizează înregistrările",
+      img: "/icons/recordings.svg",
+      handleClick: () => router.push("/recordings")
+    },
+    {
+      title: "Participă",
+      description: "Intră cu un cod de acces",
+      img: "/icons/join-meeting.svg",
+      handleClick: () => router.push("/personal-room?join=true")
+    }
+  ];
 
   return (
-    <section className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      <HomeCard
-        img="/icons/add-meeting.svg"
-        title="New Meeting"
-        description="Start an instant meeting"
-        handleClick={() => setMeetingState("isInstantMeeting")}
-        className="bg-gradient-to-br from-orange-500 to-amber-600"
-      />
-
-      <HomeCard
-        img="/icons/schedule.svg"
-        title="Schedule Meeting"
-        description="Plan your meeting"
-        handleClick={() => setMeetingState("isScheduleMeeting")}
-        className="bg-gradient-to-br from-blue-500 to-cyan-600"
-      />
-
-      <HomeCard
-        img="/icons/upcoming.svg"
-        title="Upcoming Meetings"
-        description="Check scheduled meetings"
-        handleClick={() => router.push("/upcoming")}
-        className="bg-gradient-to-br from-green-500 to-emerald-600"
-      />
-
-      <HomeCard
-        img="/icons/previous.svg"
-        title="Previous Meetings"
-        description="View past meetings"
-        handleClick={() => router.push("/previous")}
-        className="bg-gradient-to-br from-pink-500 to-rose-600"
-      />
-
-      <HomeCard
-        img="/icons/recordings.svg"
-        title="Recordings"
-        description="Check out your recordings"
-        handleClick={() => router.push("/recordings")}
-        className="bg-gradient-to-br from-purple-500 to-fuchsia-600"
-      />
-
-      <HomeCard
-        img="/icons/join-meeting.svg"
-        title="Join Meeting"
-        description="Via invitation link"
-        handleClick={() => setMeetingState("isJoiningMeeting")}
-        className="bg-gradient-to-br from-yellow-400 to-amber-500"
-      />
-
-      {!callDetails ? (
-        <MeetingModal
-          isOpen={meetingState === "isScheduleMeeting"}
-          onClose={() => setMeetingState(undefined)}
-          title="Create meeting"
-          handleClick={createMeeting}
-          isLoading={isLoading}
-        >
-          <div className="flex flex-col gap-2.5">
-            <label className="text-normal text-base leading-[22px] text-sky-2">
-              Add a description
-              <Textarea
-                rows={6}
-                placeholder="Add a description..."
-                className="mt-2 resize-none border-none bg-dark-3"
-                onChange={(e) => {
-                  setValues({ ...values, description: e.target.value });
-                }}
-              />
-            </label>
-          </div>
-
-          <div className="flex w-full flex-col gap-2.5">
-            <label className="text-normal flex flex-col text-base leading-[22px] text-sky-2">
-              Select Date and Time
-              <ReactDatePicker
-                selected={values.dateTime}
-                onChange={(date) =>
-                  setValues({
-                    ...values,
-                    dateTime: date!,
-                  })
-                }
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={15}
-                timeCaption="time"
-                dateFormat="MMMM d, yyyy h:mm aa"
-                className="mt-2 w-full rounded bg-dark-3 p-2"
-              />
-            </label>
-          </div>
-        </MeetingModal>
-      ) : (
-        <MeetingModal
-          isOpen={meetingState === "isScheduleMeeting"}
-          onClose={() => setMeetingState(undefined)}
-          title="Meeting created"
-          className="text-center"
-          buttonText="Copy meeting link"
-          handleClick={() => {
-            navigator.clipboard.writeText(meetingLink);
-
-            toast({ title: "Link copied." });
-          }}
-          image="/icons/checked.svg"
-          buttonIcon="/icons/copy.svg"
-          isLoading={isLoading}
+    <div className={cn(
+      "grid gap-4",
+      getGridLayoutClasses()
+    )}>
+      {actionCards.map((card, index) => (
+        <HomeCard
+          key={card.title}
+          title={card.title}
+          description={card.description}
+          img={card.img}
+          className={getCardStyle(index)}
+          handleClick={card.handleClick}
         />
-      )}
-
-      <MeetingModal
-        isOpen={meetingState === "isInstantMeeting"}
-        onClose={() => setMeetingState(undefined)}
-        title="Start an instant meeting"
-        className="text-center"
-        buttonText="Start Meeting"
-        handleClick={createMeeting}
-        isLoading={isLoading}
-      />
-
-      <MeetingModal
-        isOpen={meetingState === "isJoiningMeeting"}
-        onClose={() => setMeetingState(undefined)}
-        title="Type the link here"
-        className="text-center"
-        buttonText="Join Meeting"
-        handleClick={() => router.push(values.link)}
-        isLoading={isLoading}
-      >
-        <Input
-          placeholder="Meeting link"
-          onChange={(e) => setValues({ ...values, link: e.target.value })}
-          className="border-none bg-dark-3"
-        />
-      </MeetingModal>
-    </section>
+      ))}
+    </div>
   );
 };

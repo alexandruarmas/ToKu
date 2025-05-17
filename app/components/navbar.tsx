@@ -13,15 +13,15 @@ export const Navbar = () => {
         <Link href="/" className="flex items-center gap-3 group">
           <div className="flex items-center justify-center rounded-xl p-2 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 group-hover:from-blue-500/30 group-hover:to-indigo-500/30 transition-all">
             <Image
-              src="/icons/yoom-logo.svg"
-              alt="App logo"
+              src="/icons/toku-logo.svg"
+              alt="Logo aplicație"
               width={28}
               height={28}
               className="max-sm:size-8"
             />
           </div>
-          <p className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70 max-sm:hidden">
-            Yoom
+          <p className="text-lg sm:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70 max-sm:hidden font-title">
+            ToKu
           </p>
         </Link>
 
@@ -41,7 +41,7 @@ export const Navbar = () => {
             href={links.sourceCode}
             target="_blank"
             rel="noreferrer noopener"
-            title="Source Code"
+            title="Cod Sursă"
             className="opacity-70 hover:opacity-100 transition-all hover:scale-105"
           >
             <Image 

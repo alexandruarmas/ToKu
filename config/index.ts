@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const siteConfig: Metadata = {
-  title: "Yoom",
+  title: "ToKu",
   description: "Modern Next.js powered Video calling app",
   icons: {
     icon: '/favicon.ico?v=2',

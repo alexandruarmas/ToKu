@@ -5,7 +5,7 @@ export const Loader = () => {
     <div className="flex-center h-screen w-full">
       <Image
         src="/icons/loading-circle.svg"
-        alt="Loading"
+        alt="Se încarcă"
         width={50}
         height={50}
       />

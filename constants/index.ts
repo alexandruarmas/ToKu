@@ -1,26 +1,26 @@
 export const SIDEBAR_LINKS = [
   {
-    label: "Home",
+    label: "Acasă",
     route: "/",
     imgUrl: "/icons/home.svg",
   },
   {
-    label: "Upcoming",
+    label: "Viitoare",
     route: "/upcoming",
     imgUrl: "/icons/upcoming.svg",
   },
   {
-    label: "Previous",
+    label: "Anterioare",
     route: "/previous",
     imgUrl: "/icons/previous.svg",
   },
   {
-    label: "Recordings",
+    label: "Înregistrări",
     route: "/recordings",
     imgUrl: "/icons/video.svg",
   },
   {
-    label: "Personal Room",
+    label: "Cameră Personală",
     route: "/personal-room",
     imgUrl: "/icons/add-personal.svg",
   },
