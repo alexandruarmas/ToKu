@@ -11,9 +11,11 @@ import {
   useBackgroundFilters,
   useCallStateHooks,
   useCall,
-  type CallLayoutType,
   type OwnCapability,
 } from "@stream-io/video-react-sdk";
+
+// Define CallLayoutType manually since it's not exported from the SDK
+type CallLayoutType = "speaker-left" | "speaker-right" | "grid";
 import { Image, LayoutList, Plus, Settings, Upload, Users, MessageSquare } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useRef, useState, useEffect } from "react";
@@ -205,6 +207,7 @@ export const MeetingRoom = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [showParticipants, setShowParticipants] = useState(false);
+  const [showChat, setShowChat] = useState(false);
   const call = useCall();
   
   // Get settings from call data
@@ -247,14 +250,13 @@ export const MeetingRoom = () => {
 
         <div className="flex items-center justify-center gap-3 bg-dark-2 p-3">
           <div className="flex items-center gap-3">
-            <CallControls 
-              allowScreenShare={allowScreenShare}
-              allowRaiseHand={allowRaiseHand}
-            />
+            <CallControls />
 
             <div className="flex items-center gap-3 border-l border-dark-3 pl-3">
-              <LayoutSwitcher layout={layout} setLayout={setLayout} />
-              <BackgroundEffectsSwitcher />
+              <div className="cursor-pointer rounded-2xl bg-[#19232D] px-4 py-2 hover:bg-[#4C535B]" onClick={() => setLayout(layout === "grid" ? "speaker-left" : layout === "speaker-left" ? "speaker-right" : "grid")}>
+                <LayoutList size={20} className="text-white" />
+              </div>
+              <BackgroundFiltersButton />
             </div>
           </div>
 

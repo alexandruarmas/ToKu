@@ -10,7 +10,6 @@ export const siteConfig: Metadata = {
   keywords: [
     "reactjs",
     "nextjs",
-    "vercel",
     "react",
     "getstream",
     "stream",
@@ -43,11 +42,11 @@ export const siteConfig: Metadata = {
     "css",
   ] as Array<string>,
   authors: {
-    name: "Sanidhya Kumar Verma",
-    url: "https://github.com/sanidhyy",
+    name: "Alexandru Armas",
+    url: "https://github.com/mrarmas02",
   },
 } as const;
 
 export const links = {
-  sourceCode: "https://github.com/sanidhyy/zoom-clone",
+  sourceCode: "https://github.com/alexandruarmas/ToKu",
 } as const;

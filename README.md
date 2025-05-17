@@ -205,7 +205,7 @@ NEXT_PUBLIC_BASE_URL=http://localhost:3000
 
 ## ⚙️Tech Stack
 
-[![React JS](https://skillicons.dev/icons?i=react "React JS")](https://react.dev/ "React JS") [![Next JS](https://skillicons.dev/icons?i=next "Next JS")](https://nextjs.org/ "Next JS") [![Typescript](https://skillicons.dev/icons?i=ts "Typescript")](https://www.typescriptlang.org/ "Typescript") [![Tailwind CSS](https://skillicons.dev/icons?i=tailwind "Tailwind CSS")](https://tailwindcss.com/ "Tailwind CSS") [![Vercel](https://skillicons.dev/icons?i=vercel "Vercel")](https://vercel.app/ "Vercel")
+[![React JS](https://skillicons.dev/icons?i=react "React JS")](https://react.dev/ "React JS") [![Next JS](https://skillicons.dev/icons?i=next "Next JS")](https://nextjs.org/ "Next JS") [![Typescript](https://skillicons.dev/icons?i=ts "Typescript")](https://www.typescriptlang.org/ "Typescript") [![Tailwind CSS](https://skillicons.dev/icons?i=tailwind "Tailwind CSS")](https://tailwindcss.com/ "Tailwind CSS")
 
 ## 🔧Stats
 
@@ -262,7 +262,7 @@ To learn more about Next.js, take a look at the following resources:
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Your feedback and contributions to this project are welcome!
 
 ## 📄Deploy on Netlify
 
@@ -278,13 +278,9 @@ You can also give this repository a star to show more people and they can use th
 
 ## ⭐ Star History
 
-<a href="https://www.star-history.com/#yeongpin/cursor-free-vip&Timeline" />
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=ToKu&type=Timeline&theme=dark" />
-  <source media="(prefers-color-scheme: light)" srcset="https://www.star-history.com/#yeongpin/cursor-free-vip&Timeline" />
-  <img alt="Star History Chart" src="https://www.star-history.com/#yeongpin/cursor-free-vip&Timeline" />
-</picture>
-</a>
+![ToKu GitHub Star History](/.github/images/star-history.png "ToKu GitHub Star History")
 
 <br />
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+

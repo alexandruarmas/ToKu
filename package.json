@@ -6,18 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "netlify-deploy": "netlify deploy --prod"
   },
   "author": {
-    "name": "Sanidhya Kumar Verma",
-    "email": "sanidhya.verma12345@gmail.com",
-    "url": "https://github.com/sanidhyy"
+    "name": "Alexandru Armas",
+    "email": "alexandru.armas22@gmail.com",
+    "url": "https://github.com/alexandruarmas"
   },
   "description": "Modern Next.js powered Video calling app",
   "keywords": [
     "reactjs",
     "nextjs",
-    "vercel",
     "react",
     "getstream",
     "stream",
@@ -52,21 +52,17 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sanidhyy/zoom-clone.git"
+    "url": "https://github.com/alexandruarmas/ToKu.git"
   },
-  "homepage": "https://github.com/sanidhyy/zoom-clone#readme",
+  "homepage": "https://github.com/alexandruarmas/ToKu#readme",
   "bugs": {
-    "url": "https://github.com/sanidhyy/zoom-clone/issues",
-    "email": "sanidhya.verma12345@gmail.com"
+    "url": "https://github.com/alexandruarmas/ToKu/issues",
+    "email": "alexandru.armas22@gmail.com"
   },
   "funding": [
     {
-      "type": "patreon",
-      "url": "https://www.patreon.com/sanidhy"
-    },
-    {
       "type": "Buy me a coffee",
-      "url": "https://www.buymeacoffee.com/sanidhy"
+      "url": "https://www.buymeacoffee.com/alexandruarmas"
     }
   ],
   "dependencies": {
