@@ -1,0 +1,35 @@
+<svg width="600" height="450" viewBox="0 0 600 450" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main background -->
+  <rect width="600" height="450" rx="16" fill="#111827"/>
+  
+  <!-- Header bar -->
+  <rect width="600" height="50" rx="16" fill="#1F2937"/>
+  
+  <!-- Video grid -->
+  <rect x="20" y="70" width="560" height="330" rx="8" fill="#1F2937"/>
+  
+  <!-- Main video -->
+  <rect x="30" y="80" width="360" height="280" rx="8" fill="#374151"/>
+  
+  <!-- Video icon in main video -->
+  <circle cx="210" cy="220" r="40" fill="#111827" fill-opacity="0.5"/>
+  <path d="M200 200L230 220L200 240V200Z" fill="#3B82F6"/>
+  
+  <!-- Small videos -->
+  <rect x="400" y="80" width="170" height="85" rx="8" fill="#374151"/>
+  <rect x="400" y="175" width="170" height="85" rx="8" fill="#374151"/>
+  <rect x="400" y="270" width="170" height="85" rx="8" fill="#374151"/>
+  
+  <!-- Circles for video participants -->
+  <circle cx="485" cy="122" r="20" fill="#111827" fill-opacity="0.5"/>
+  <circle cx="485" cy="217" r="20" fill="#111827" fill-opacity="0.5"/>
+  <circle cx="485" cy="312" r="20" fill="#111827" fill-opacity="0.5"/>
+  
+  <!-- Bottom controls -->
+  <rect x="150" y="380" width="300" height="50" rx="25" fill="#111827"/>
+  
+  <!-- Control buttons -->
+  <circle cx="225" cy="405" r="15" fill="#3B82F6"/>
+  <circle cx="300" cy="405" r="15" fill="#3B82F6"/>
+  <circle cx="375" cy="405" r="15" fill="#3B82F6"/>
+</svg> 

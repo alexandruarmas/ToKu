@@ -4,5 +4,5 @@ import { NextResponse } from "next/server";
 export default clerkMiddleware();
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|landing).*)"],
 };
