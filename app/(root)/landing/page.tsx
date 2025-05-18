@@ -10,52 +10,52 @@ const Hero = () => {
   const router = useRouter();
   
   return (
-    <section className="relative bg-gradient-to-b from-black to-gray-900 pt-20 pb-32 overflow-hidden hero-section">
+    <section className="relative bg-gradient-to-b from-black to-gray-900 pt-16 pb-16 sm:pt-20 sm:pb-32 overflow-hidden hero-section">
       <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
       
       {/* Glowing orbs for visual effect */}
-      <div className="absolute top-1/4 -left-20 w-72 h-72 bg-yellow-500 rounded-full filter blur-3xl opacity-20 animate-blob"></div>
-      <div className="absolute top-1/3 -right-20 w-72 h-72 bg-yellow-300 rounded-full filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+      <div className="absolute top-1/4 -left-20 w-48 sm:w-72 h-48 sm:h-72 bg-yellow-500 rounded-full filter blur-3xl opacity-20 animate-blob"></div>
+      <div className="absolute top-1/3 -right-20 w-48 sm:w-72 h-48 sm:h-72 bg-yellow-300 rounded-full filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col lg:flex-row items-center">
           <div className="flex-1 text-center lg:text-left mb-10 lg:mb-0">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight">
               Connect With Anyone, <br className="hidden md:block" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
                 Anywhere, Anytime
               </span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0 mobile-text-lg">
+            <p className="text-base sm:text-lg text-gray-300 mb-6 max-w-2xl mx-auto lg:mx-0 mobile-text-lg">
               Experience crystal-clear video calls with advanced features that make virtual meetings feel like you're in the same room.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button 
                 onClick={() => router.push("/sign-up")} 
-                className="px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold text-lg hover:opacity-90 transition-all shadow-lg mobile-full-width"
+                className="px-5 py-2 sm:px-6 sm:py-3 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold text-base sm:text-lg hover:opacity-90 transition-all shadow-lg mobile-full-width"
               >
                 Get Started Free
               </button>
               <button 
                 onClick={() => router.push("/sign-in")} 
-                className="px-6 py-3 rounded-lg border border-yellow-600 text-yellow-500 font-bold text-lg hover:bg-yellow-600/10 transition-all mobile-full-width"
+                className="px-5 py-2 sm:px-6 sm:py-3 rounded-lg border border-yellow-600 text-yellow-500 font-bold text-base sm:text-lg hover:bg-yellow-600/10 transition-all mobile-full-width"
               >
                 Sign In
               </button>
             </div>
           </div>
           <div className="flex-1 relative">
-            <div className="relative w-full max-w-lg mx-auto">
-              <div className="absolute top-0 -left-4 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-              <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-              <div className="absolute -bottom-8 left-20 w-72 h-72 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+            <div className="relative w-full max-w-md mx-auto">
+              <div className="absolute top-0 -left-4 w-48 sm:w-72 h-48 sm:h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+              <div className="absolute top-0 -right-4 w-48 sm:w-72 h-48 sm:h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+              <div className="absolute -bottom-8 left-20 w-48 sm:w-72 h-48 sm:h-72 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
               <div className="relative">
                 <Image 
                   src="/images/hero-mockup.svg"
                   alt="Video calling app interface"
-                  width={600}
-                  height={450}
-                  className="rounded-2xl shadow-2xl border border-yellow-600/30"
+                  width={500}
+                  height={375}
+                  className="rounded-2xl shadow-2xl border border-yellow-600/30 w-full h-auto"
                 />
               </div>
             </div>
@@ -102,19 +102,19 @@ const Features = () => {
   ];
   
   return (
-    <section className="py-16 bg-black mobile-py-8" id="features">
+    <section className="py-12 sm:py-16 bg-black mobile-py-8" id="features">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4 text-white">Powerful Features</h2>
-        <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4 text-white">Powerful Features</h2>
+        <p className="text-gray-400 text-center max-w-2xl mx-auto mb-10">
           Designed to make your video meetings more productive, connected, and secure.
         </p>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mobile-card-grid">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mobile-card-grid">
           {features.map((feature, index) => (
-            <div key={index} className="bg-gray-900 p-6 rounded-xl shadow-md border border-gray-800 hover:border-yellow-600/50 transition-all">
+            <div key={index} className="bg-gray-900 p-4 sm:p-6 rounded-xl shadow-md border border-gray-800 hover:border-yellow-600/50 transition-all">
               <div className="mb-4">{feature.icon}</div>
               <h3 className="text-lg font-bold mb-2 text-white">{feature.title}</h3>
-              <p className="text-gray-400">{feature.description}</p>
+              <p className="text-gray-400 text-sm sm:text-base">{feature.description}</p>
             </div>
           ))}
         </div>
@@ -175,31 +175,31 @@ const Pricing = () => {
   ];
   
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-900 to-black text-white mobile-py-8" id="pricing">
+    <section className="py-12 sm:py-16 bg-gradient-to-b from-gray-900 to-black text-white mobile-py-8" id="pricing">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4">Simple, Transparent Pricing</h2>
-        <p className="text-gray-400 text-center max-w-2xl mx-auto mb-10">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-4">Simple, Transparent Pricing</h2>
+        <p className="text-gray-400 text-center max-w-2xl mx-auto mb-8">
           Choose the plan that works for you, whether you're a solo user or a large organization.
         </p>
         
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-8">
           <div className="bg-gray-900 p-1 rounded-lg flex">
             <button 
               onClick={() => setAnnualBilling(false)} 
-              className={`px-4 py-2 rounded-md ${!annualBilling ? 'bg-yellow-600 text-black' : 'text-gray-400'}`}
+              className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md text-sm ${!annualBilling ? 'bg-yellow-600 text-black' : 'text-gray-400'}`}
             >
               Monthly
             </button>
             <button 
               onClick={() => setAnnualBilling(true)} 
-              className={`px-4 py-2 rounded-md ${annualBilling ? 'bg-yellow-600 text-black' : 'text-gray-400'}`}
+              className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md text-sm ${annualBilling ? 'bg-yellow-600 text-black' : 'text-gray-400'}`}
             >
               Annual <span className="text-xs bg-black text-yellow-400 px-1 py-0.5 rounded">Save 20%</span>
             </button>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mobile-card-grid">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mobile-card-grid">
           {plans.map((plan, index) => (
             <div key={index} className={`rounded-xl overflow-hidden pricing-card ${plan.highlight ? 'ring-2 ring-yellow-500 bg-gray-900' : 'bg-gray-900'}`}>
               {plan.highlight && (
@@ -240,17 +240,17 @@ const CTA = () => {
   const router = useRouter();
   
   return (
-    <section className="py-16 bg-gradient-to-r from-black to-gray-900 text-white">
+    <section className="py-12 sm:py-16 bg-gradient-to-r from-black to-gray-900 text-white">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Ready to transform your video meetings?</h2>
-        <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">Ready to transform your video meetings?</h2>
+        <p className="text-lg opacity-90 mb-6 max-w-2xl mx-auto">
           Join thousands of users who've already upgraded their virtual communication experience.
         </p>
         <button 
           onClick={() => router.push("/sign-up")}
-          className="px-6 py-3 bg-yellow-600 text-black rounded-lg font-bold text-lg hover:bg-yellow-500 transition-colors inline-flex items-center"
+          className="px-5 py-2 sm:px-6 sm:py-3 bg-yellow-600 text-black rounded-lg font-bold text-base sm:text-lg hover:bg-yellow-500 transition-colors inline-flex items-center"
         >
-          Get Started Now <ArrowRight className="ml-2 w-5 h-5" />
+          Get Started Now <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
         </button>
       </div>
     </section>
@@ -323,8 +323,8 @@ const LandingPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   
   return (
-    <div className="min-h-screen bg-black">
-      <header className="fixed top-0 left-0 right-0 bg-black/90 backdrop-blur-md z-50 py-4">
+    <div className="min-h-screen bg-black max-w-screen overflow-hidden">
+      <header className="fixed top-0 left-0 right-0 bg-black/90 backdrop-blur-md z-50 py-3 sm:py-4">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
@@ -372,7 +372,7 @@ const LandingPage = () => {
         </div>
       </header>
       
-      <main className="overflow-x-hidden">
+      <main className="overflow-x-hidden max-w-screen">
         <Hero />
         <Features />
         <Pricing />
