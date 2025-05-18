@@ -1,10 +1,17 @@
 import type { PropsWithChildren } from "react";
+import Script from "next/script";
 
 const LandingLayout = ({ children }: PropsWithChildren) => {
   return (
-    <main>
-      {children}
-    </main>
+    <>
+      <Script 
+        src="/mobile-fix.js" 
+        strategy="afterInteractive"
+      />
+      <main>
+        {children}
+      </main>
+    </>
   );
 };
 
