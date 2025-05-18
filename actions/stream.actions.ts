@@ -23,23 +23,28 @@ export const tokenProvider = async () => {
     
     if (!user || !user.id) {
       console.error("[TOKEN PROVIDER] User not authenticated");
-      throw new Error("Authentication required.");
+      throw new Error("Authentication required. Please sign in again.");
     }
     
     console.log(`[TOKEN PROVIDER] Got user: ${user.id}`);
     
     try {
       console.log("[TOKEN PROVIDER] Initializing Stream client");
+      // Create a new StreamClient instance for each token request to ensure freshness
       const streamClient = new StreamClient(String(apiKey), String(apiSecret));
   
-      // token is valid for an hour
-      const exp = Math.round(new Date().getTime() / 1000) + 60 * 60;
+      // Token valid for 24 hours (safer default)
+      const exp = Math.floor(Date.now() / 1000) + 24 * 60 * 60;
       const issued = Math.floor(Date.now() / 1000) - 60;
   
       console.log("[TOKEN PROVIDER] Generating token");
       const token = streamClient.createToken(String(user.id), exp, issued);
       
-      console.log(`[TOKEN PROVIDER] Token generated successfully for ${user.id}`);
+      if (!token) {
+        throw new Error("Failed to generate token");
+      }
+      
+      console.log(`[TOKEN PROVIDER] Token generated successfully for ${user.id} (valid for 24h)`);
       return token;
     } catch (streamError) {
       console.error("[TOKEN PROVIDER] Stream client error:", streamError);
@@ -47,6 +52,11 @@ export const tokenProvider = async () => {
     }
   } catch (error) {
     console.error("[TOKEN PROVIDER] Error:", error);
-    throw error; // Re-throw to propagate to the client
+    // Make sure to throw a concise error message that can be displayed to users
+    if (error instanceof Error) {
+      throw error;
+    } else {
+      throw new Error("Failed to authenticate with Stream. Please try again.");
+    }
   }
 };

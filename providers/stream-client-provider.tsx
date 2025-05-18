@@ -45,6 +45,7 @@ export const StreamClientProvider = ({ children }: PropsWithChildren) => {
       try {
         console.log("[STREAM PROVIDER] Creating client for user:", user.id);
         
+        // Create a client without a token provider first to check API key
         const client = new StreamVideoClient({
           apiKey: String(apiKey),
           user: {
@@ -52,12 +53,11 @@ export const StreamClientProvider = ({ children }: PropsWithChildren) => {
             name: user?.username || user?.id,
             image: user?.imageUrl,
           },
+          // Setting the token provider as the last step
           tokenProvider,
         });
         
-        console.log("[STREAM PROVIDER] Client created, SDK will handle connection with token provider");
-        
-        // No need to call connectUser - the SDK handles this automatically when using tokenProvider
+        console.log("[STREAM PROVIDER] Client created successfully");
         setVideoClient(client);
       } catch (err) {
         console.error("[STREAM PROVIDER] Initialization error:", err);
@@ -65,12 +65,21 @@ export const StreamClientProvider = ({ children }: PropsWithChildren) => {
       }
     };
 
+    // Clear any previous errors
+    setError(null);
+    
+    // Initialize the client
     initClient();
 
     return () => {
       if (videoClient) {
         console.log("[STREAM PROVIDER] Cleaning up connection");
-        videoClient.disconnectUser().catch(console.error);
+        // Using try-catch to prevent disconnectUser errors from breaking the cleanup
+        try {
+          videoClient.disconnectUser().catch(console.error);
+        } catch (err) {
+          console.error("[STREAM PROVIDER] Error during cleanup:", err);
+        }
       }
     };
   }, [user, isLoaded]);
@@ -89,7 +98,9 @@ export const StreamClientProvider = ({ children }: PropsWithChildren) => {
     );
   }
 
-  if (!videoClient) return <Loader />;
+  if (!videoClient) {
+    return <Loader />;
+  }
 
   return <StreamVideo client={videoClient}>{children}</StreamVideo>;
 };
