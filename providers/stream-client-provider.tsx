@@ -15,26 +15,38 @@ export const StreamClientProvider = ({ children }: PropsWithChildren) => {
   const { user, isLoaded } = useUser();
 
   useEffect(() => {
-    if (!isLoaded) return;
+    console.log("[STREAM PROVIDER] Initialization started");
+    console.log("[STREAM PROVIDER] API Key exists:", !!apiKey);
+    console.log("[STREAM PROVIDER] Auth state:", { isLoaded, userExists: !!user });
+    
+    if (!isLoaded) {
+      console.log("[STREAM PROVIDER] Auth not loaded yet, waiting...");
+      return;
+    }
     
     if (!user) {
-      console.error("Stream provider: User not authenticated");
+      console.error("[STREAM PROVIDER] User not authenticated");
       setError("User not authenticated. Please log in.");
       return;
     }
     
+    console.log("[STREAM PROVIDER] User authenticated:", { 
+      userId: user.id,
+      username: user.username || user.id
+    });
+    
     if (!apiKey) {
-      console.error("Stream provider: API key missing");
+      console.error("[STREAM PROVIDER] API key missing");
       setError("Configuration error: Stream API key missing.");
       return;
     }
 
     const initClient = async () => {
       try {
-        console.log("Initializing Stream client for user:", user.id);
+        console.log("[STREAM PROVIDER] Creating client for user:", user.id);
         
         const client = new StreamVideoClient({
-          apiKey,
+          apiKey: String(apiKey),
           user: {
             id: user?.id,
             name: user?.username || user?.id,
@@ -42,23 +54,30 @@ export const StreamClientProvider = ({ children }: PropsWithChildren) => {
           },
           tokenProvider,
         });
-
-        // No need to call connectUser again as it's handled by the SDK when providing tokenProvider
-        // Just test that we have a valid client
-        console.log("Stream client initialized successfully");
+        
+        console.log("[STREAM PROVIDER] Client created, attempting connection...");
+        
+        // Test connection
+        try {
+          await client.connectUser({ id: user.id });
+          console.log("[STREAM PROVIDER] Connection successful!");
+        } catch (connError) {
+          console.error("[STREAM PROVIDER] Connection failed:", connError);
+          throw connError;
+        }
         
         setVideoClient(client);
       } catch (err) {
-        console.error("Error initializing Stream client:", err);
-        setError(`Failed to connect: ${err instanceof Error ? err.message : "Unknown error"}`);
+        console.error("[STREAM PROVIDER] Initialization error:", err);
+        setError(`Connection failed: ${err instanceof Error ? err.message : "Unknown error"}`);
       }
     };
 
     initClient();
 
     return () => {
-      // Clean up on unmount
       if (videoClient) {
+        console.log("[STREAM PROVIDER] Cleaning up connection");
         videoClient.disconnectUser().catch(console.error);
       }
     };
