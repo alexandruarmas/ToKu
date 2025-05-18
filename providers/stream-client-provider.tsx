@@ -55,17 +55,9 @@ export const StreamClientProvider = ({ children }: PropsWithChildren) => {
           tokenProvider,
         });
         
-        console.log("[STREAM PROVIDER] Client created, attempting connection...");
+        console.log("[STREAM PROVIDER] Client created, SDK will handle connection with token provider");
         
-        // Test connection
-        try {
-          await client.connectUser({ id: user.id });
-          console.log("[STREAM PROVIDER] Connection successful!");
-        } catch (connError) {
-          console.error("[STREAM PROVIDER] Connection failed:", connError);
-          throw connError;
-        }
-        
+        // No need to call connectUser - the SDK handles this automatically when using tokenProvider
         setVideoClient(client);
       } catch (err) {
         console.error("[STREAM PROVIDER] Initialization error:", err);
