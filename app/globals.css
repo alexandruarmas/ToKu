@@ -447,6 +447,55 @@
   .cl-socialButtonsIconButtonsBlockWrapper {
     gap: 12px !important;
   }
+  
+  /* Ensure proper input field behavior on mobile */
+  input[type="password"],
+  input[type="text"],
+  input[type="email"] {
+    -webkit-appearance: none;
+    appearance: none;
+    font-size: 16px !important; /* Prevents iOS zoom on focus */
+    transform: scale(1); /* Ensures visibility */
+    opacity: 1;
+    position: relative !important;
+    z-index: 10;
+  }
+  
+  /* Fix for Clerk form components */
+  .cl-formFieldInput,
+  .cl-formFieldInputGroup {
+    font-size: 16px !important;
+    height: auto !important;
+    min-height: 44px !important; /* Larger tap target */
+    position: relative !important;
+    z-index: 5;
+    -webkit-appearance: none;
+    appearance: none;
+    transform: translateZ(0);
+    touch-action: manipulation;
+  }
+  
+  /* Ensure login form is properly sized and positioned */
+  .cl-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 16px !important;
+    margin: 0 auto !important;
+    transform: none !important;
+    position: relative !important;
+    overflow: visible !important;
+    z-index: 10;
+  }
+  
+  /* Ensure elements don't overlap or hide input fields */
+  .cl-formFieldInput:focus,
+  .cl-formFieldInputGroup:focus,
+  input[type="password"]:focus,
+  input[type="text"]:focus,
+  input[type="email"]:focus {
+    position: relative !important;
+    z-index: 20;
+  }
 }
 
 /* ======== stream css overrides ======== */
@@ -1324,5 +1373,147 @@ div[class*="cl-socialButtons"] {
   .animate-aurora-subtle {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* Animations for landing page */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Fix auth component positioning issues */
+.cl-rootBox,
+.cl-card,
+.cl-form,
+.cl-formField,
+.cl-formFieldInputGroup {
+  position: relative !important;
+  width: 100% !important;
+}
+
+/* Add specific input focus handling for mobile devices */
+@media (max-width: 640px) {
+  /* Ensure adequate spacing for form fields */
+  .cl-formField {
+    margin-bottom: 16px !important;
+  }
+  
+  /* Fix scrolling issues on input focus */
+  .cl-card {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Force keyboard to appear for password inputs */
+  input[type="password"] {
+    -webkit-user-select: text;
+    user-select: text;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    background-color: transparent;
+    border: 1px solid var(--color-border-default);
+  }
+  
+  /* Fix for Clerk's password inputs */
+  .cl-formFieldInput[type="password"],
+  .cl-formFieldInputGroup input[type="password"] {
+    -webkit-text-security: disc !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    outline-width: 0 !important;
+    border: 1px solid var(--color-border-default) !important;
+    padding: 10px 16px !important;
+  }
+  
+  /* Improve tap target sizes */
+  .cl-formButtonPrimary, 
+  .cl-button, 
+  button[type="submit"],
+  button {
+    min-height: 44px !important;
+  }
+  
+  /* Prevent fixed positioning that could cause issues */
+  body:has(input:focus) {
+    position: static !important;
+    height: auto !important;
+  }
+  
+  /* Disable zoom on input focus */
+  .cl-formField {
+    touch-action: manipulation;
+  }
+}
+
+/* Landing page specific mobile optimizations */
+@media (max-width: 640px) {
+  /* Make hero section more compact on mobile */
+  .hero-section {
+    padding-top: 5rem !important;
+    padding-bottom: 4rem !important;
+  }
+
+  /* Make buttons more visible on mobile */
+  .mobile-full-width {
+    width: 100% !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Fix header on mobile */
+  .mobile-menu-button {
+    display: flex !important;
+  }
+
+  /* Fix pricing cards on mobile */
+  .pricing-card {
+    padding: 1rem !important;
+  }
+  
+  /* Better readable text on mobile */
+  .mobile-text-lg {
+    font-size: 1.125rem !important;
+  }
+  
+  /* Proper spacing for mobile layouts */
+  .mobile-py-8 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  /* Improve card grid layout on mobile */
+  .mobile-card-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  /* Fix footer sections on mobile */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem 1rem !important;
   }
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Link from "next/link";
 
 export default function LandingPage() {
@@ -24,4 +25,10 @@ export default function LandingPage() {
       </div>
     </div>
   );
+=======
+import LandingPage from "./(root)/landing/page";
+
+export default function RootPage() {
+  return <LandingPage />;
+>>>>>>> aa4bf219bc027f823c6a7f58af58ae31580bd3ef
 } 
