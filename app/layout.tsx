@@ -43,7 +43,7 @@ export const metadata: Metadata = siteConfig;
 
 const AppLayout = ({ children }: Readonly<PropsWithChildren>) => {
   return (
-    <html lang="en">
+    <html lang="en" className={cn(spaceMono.variable, rubikDirt.variable)}>
       <ClerkProvider
         appearance={{
           baseTheme: undefined,
@@ -89,11 +89,15 @@ const AppLayout = ({ children }: Readonly<PropsWithChildren>) => {
             spacingUnit: "0.78125rem",
           },
         }}
+        signInUrl="/sign-in"
+        signUpUrl="/sign-up"
+        afterSignInUrl="/dashboard"
+        afterSignUpUrl="/dashboard"
       >
         <ThemeProvider>
           <LayoutProvider>
             <BackgroundProvider>
-              <body className={cn("relative overflow-hidden h-screen", spaceMono.variable, rubikDirt.variable)}>
+              <body className="relative overflow-hidden h-screen">
                 <AnimatedBackground />
                 <div className="flex h-screen justify-center items-center overflow-auto relative">
                   {children}

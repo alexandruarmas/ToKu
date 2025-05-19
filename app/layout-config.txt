@@ -1,0 +1,24 @@
+// Add these properties to your ClerkProvider in app/layout.tsx
+
+Add the following properties to your existing ClerkProvider component:
+
+routing="path"
+signInUrl="/sign-in"
+signUpUrl="/sign-up"
+afterSignInUrl="/dashboard"
+afterSignUpUrl="/dashboard"
+
+Example:
+
+<ClerkProvider
+  appearance={{
+    // Your existing appearance settings
+  }}
+  routing="path"
+  signInUrl="/sign-in"
+  signUpUrl="/sign-up"
+  afterSignInUrl="/dashboard"
+  afterSignUpUrl="/dashboard"
+>
+  {/* Rest of your layout */}
+</ClerkProvider> 

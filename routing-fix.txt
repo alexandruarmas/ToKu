@@ -1,0 +1,35 @@
+// Fix for the routing conflict error
+// "Error: You cannot define a route with the same specificity as a optional catch-all route"
+
+// OPTION 1: Move your custom auth pages to different paths
+// Instead of having pages at:
+// - app/(auth)/sign-in/page.tsx
+// - app/(auth)/sign-up/page.tsx
+
+// Move them to:
+// - app/(auth)/signin/page.tsx
+// - app/(auth)/signup/page.tsx
+
+// Then update your ClerkProvider configuration to:
+signInUrl="/signin"
+signUpUrl="/signup"
+
+// OPTION 2: Use Clerk's built-in pages
+// Delete your custom pages at:
+// - app/(auth)/sign-in/page.tsx
+// - app/(auth)/sign-up/page.tsx
+
+// And let Clerk handle the auth UI with its own routes.
+// Update your middleware to include these routes as public:
+publicRoutes: ["/", "/sign-in[[...sign-in]]", "/sign-up[[...sign-up]]"]
+
+// OPTION 3 (RECOMMENDED): Use the official Clerk app directory structure
+// Move your custom auth pages following Clerk's recommended structure:
+// - app/(auth)/sign-in/[[...sign-in]]/page.tsx
+// - app/(auth)/sign-up/[[...sign-up]]/page.tsx
+
+// This matches Clerk's expected pattern and avoids conflicts.
+// Make sure your custom pages use:
+routing="path"
+pathParam="sign-in" // for sign-in page
+pathParam="sign-up" // for sign-up page 

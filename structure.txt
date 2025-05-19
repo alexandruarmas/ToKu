@@ -1,0 +1,93 @@
+# Project Folder Structure
+
+## Root Level
+- next.config.mjs - Next.js configuration
+- tailwind.config.ts - Tailwind CSS configuration
+- middleware.ts - Middleware configuration (currently disabled)
+- package.json - Project dependencies
+- .env.local - Environment variables
+- .env.example - Example environment variables
+- tsconfig.json - TypeScript configuration
+- postcss.config.mjs - PostCSS configuration
+- components.json - UI components configuration
+
+## Main Directories
+/app
+├── layout.tsx (Root layout with ClerkProvider)
+├── globals.css (Global styles)
+├── (auth)/ (Authentication routes group)
+│   ├── sign-in/
+│   └── sign-up/
+└── (root)/ (Main application routes)
+    ├── layout.tsx
+    ├── (home)/ (Dashboard routes)
+    │   ├── page.tsx (Home page)
+    │   ├── meeting/ (Nested meeting routes)
+    │   ├── personal-room/
+    │   ├── previous/
+    │   ├── recordings/
+    │   └── upcoming/
+    └── meeting/ (Meeting routes)
+        ├── layout.tsx
+        └── [id]/ (Dynamic meeting route)
+
+/components
+├── ui/ (Shadcn UI components)
+├── modals/ (Modal components)
+├── meeting-room.tsx
+├── meeting-setup.tsx
+├── meeting-type-list.tsx
+├── meeting-card.tsx
+├── call-list.tsx
+├── sidebar.tsx
+├── mobile-nav.tsx
+├── navbar.tsx
+├── home-card.tsx
+├── settings-button.tsx
+├── page-layout.tsx
+├── grid-layout.tsx
+├── animated-background.tsx
+├── camera-tips.tsx
+├── loader.tsx
+└── end-call-button.tsx
+
+/providers
+├── theme-provider.tsx
+├── layout-provider.tsx 
+├── background-provider.tsx
+└── stream-client-provider.tsx
+
+/actions - Server actions
+/hooks - Custom React hooks
+/lib - Utility functions
+/config - Configuration settings
+/constants - Constant values
+/types - TypeScript type definitions
+/public - Static assets
+
+## Middleware Routes
+
+```
+middleware.ts (Root)
+└── Currently disabled (empty implementation)
+    └── No active matchers configured
+```
+
+## Authentication System
+```
+ClerkProvider (app/layout.tsx)
+├── Handles authentication throughout the application
+└── Custom styling and configuration for auth UI
+```
+
+## Route Protection
+```
+Authentication
+└── Handled by Clerk
+    └── Implemented through ClerkProvider in root layout
+
+Authorization
+└── Basic checks in action handlers
+    └── Example in actions/stream.actions.ts:
+        └── "if (!user || !user?.id) throw new Error("Unauthorized.")"
+``` 

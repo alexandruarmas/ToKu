@@ -1,11 +1,20 @@
+"use client";
+
 import { SignUp } from "@clerk/nextjs";
 
-const SignUpPage = () => {
+export default function SignUpPage() {
   return (
-    <main className="flex h-screen w-full items-center justify-center">
-      <SignUp />
-    </main>
+    <div className="flex items-center justify-center min-h-screen bg-slate-100">
+      <SignUp
+        appearance={{
+          elements: {
+            rootBox: "mx-auto",
+            card: "shadow-xl"
+          }
+        }}
+        signInUrl="/sign-in"
+        afterSignUpUrl="/dashboard"
+      />
+    </div>
   );
-};
-
-export default SignUpPage;
+}

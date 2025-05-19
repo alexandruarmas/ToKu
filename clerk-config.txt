@@ -1,0 +1,27 @@
+// Changes needed in your ClerkProvider component
+
+// Add these props to your ClerkProvider component in app/layout.tsx
+// This tells Clerk to use your custom routes instead of generating its own
+
+signInUrl="/sign-in"
+signUpUrl="/sign-up"
+afterSignInUrl="/dashboard"
+afterSignUpUrl="/dashboard"
+
+// Also add this configuration to let Clerk know where to find the sign-in/sign-up components
+routing="path"
+
+// Example:
+<ClerkProvider
+  appearance={{
+    // Your existing appearance config
+  }}
+  // Add these four props:
+  signInUrl="/sign-in"
+  signUpUrl="/sign-up"
+  afterSignInUrl="/dashboard"
+  afterSignUpUrl="/dashboard"
+  routing="path"
+>
+  {/* Your existing layout */}
+</ClerkProvider> 

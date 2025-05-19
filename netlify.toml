@@ -1,9 +1,31 @@
 [build]
   command = "npm run build"
-  publish = ".next"
+  publish = "out"
 
 [build.environment]
   NETLIFY_NEXT_PLUGIN_SKIP = "true"
 
 [[plugins]]
-  package = "@netlify/plugin-nextjs" 
+  package = "@netlify/plugin-nextjs"
+
+# Handle SPA-style routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Redirect clean URLs to our SPA
+[[redirects]]
+  from = "/dashboard/*"
+  to = "/dashboard/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/sign-in/*"
+  to = "/sign-in/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/sign-up/*"
+  to = "/sign-up/index.html"
+  status = 200 

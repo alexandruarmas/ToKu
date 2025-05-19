@@ -1,0 +1,38 @@
+Clerk Next.js App Router Configuration Checklist
+
+1. Verify your .env.local file has the following environment variables:
+   - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+   - CLERK_SECRET_KEY
+   - NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   - NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+   - NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
+   - NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/dashboard
+
+2. Make sure your authentication routes use the catch-all pattern:
+   - app/(auth)/sign-in/[[...sign-in]]/page.tsx
+   - app/(auth)/sign-up/[[...sign-up]]/page.tsx
+
+3. Ensure your middleware is correctly set up:
+   - Using clerkMiddleware
+   - Has the correct matcher patterns
+
+4. Your ClerkProvider in app/layout.tsx should have:
+   - No "routing" prop (handled by environment variables)
+   - Correct appearance settings
+
+5. Try rebuilding and restarting your development server:
+   ```
+   npm run build
+   npm run dev
+   ```
+
+6. If issues persist, try cleaning Next.js cache:
+   ```
+   rm -rf .next
+   npm run dev
+   ```
+
+These changes should fix the ClerkLoaded component error by:
+1. Simplifying the landing page to not use Clerk client components
+2. Using the correct route structure for auth pages
+3. Removing unnecessary routing props from the SignIn/SignUp components 
